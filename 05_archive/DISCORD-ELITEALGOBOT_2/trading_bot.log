@@ -1,0 +1,195 @@
+2025-08-31 10:40:17,211 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-08-31 10:40:17,212 - TradingBot - INFO - Starting Discord client...
+2025-08-31 10:40:17,212 - TradingBot - ERROR - Unexpected error: Client.run() got an unexpected keyword argument 'bot'
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 134, in main
+    client.run(DISCORD_TOKEN, bot=False, log_handler=None)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Client.run() got an unexpected keyword argument 'bot'
+2025-08-31 10:40:17,212 - TradingBot - INFO - Bot has been stopped.
+2025-08-31 10:40:28,826 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-08-31 10:40:28,826 - TradingBot - INFO - Starting Discord client...
+2025-08-31 10:40:28,826 - discord.client - INFO - logging in using static token
+2025-08-31 10:40:29,024 - TradingBot - ERROR - Unexpected error: Cannot connect to host discord.com:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)')]
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 1283, in _wrap_create_connection
+    return await self._loop.create_connection(*args, **kwargs, sock=sock)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 1187, in create_connection
+    transport, protocol = await self._create_connection_transport(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        ssl_shutdown_timeout=ssl_shutdown_timeout)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 1220, in _create_connection_transport
+    await waiter
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/sslproto.py", line 581, in _on_handshake_complete
+    raise handshake_exc
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/sslproto.py", line 563, in _do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/ssl.py", line 951, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 134, in main
+    client.run(DISCORD_TOKEN, log_handler=None)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/client.py", line 929, in run
+    asyncio.run(runner())
+    ~~~~~~~~~~~^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/client.py", line 918, in runner
+    await self.start(token, reconnect=reconnect)
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/client.py", line 846, in start
+    await self.login(token)
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/client.py", line 675, in login
+    data = await self.http.static_login(token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/http.py", line 839, in static_login
+    data = await self.request(Route('GET', '/users/@me'))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/http.py", line 654, in request
+    async with self.__session.request(method, url, **kwargs) as response:
+               ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/client.py", line 1488, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/client.py", line 770, in _request
+    resp = await handler(req)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/client.py", line 725, in _connect_and_send_request
+    conn = await self._connector.connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        req, traces=traces, timeout=real_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 642, in connect
+    proto = await self._create_connection(req, traces, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 1209, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 1581, in _create_direct_connection
+    raise last_exc
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 1550, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 1285, in _wrap_create_connection
+    raise ClientConnectorCertificateError(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorCertificateError: Cannot connect to host discord.com:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)')]
+2025-08-31 10:40:29,031 - TradingBot - INFO - Bot has been stopped.
+2025-08-31 10:40:41,955 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-08-31 10:40:41,955 - TradingBot - INFO - Starting Discord client...
+2025-08-31 10:40:41,955 - discord.client - INFO - logging in using static token
+2025-08-31 10:40:42,128 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-08-31 10:40:42,128 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:40:37,098 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:40:37,098 - TradingBot - INFO - Starting Discord client...
+2025-09-01 10:40:37,099 - discord.client - INFO - logging in using static token
+2025-09-01 10:40:37,275 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:40:37,275 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:45:16,172 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:45:16,174 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:45:16,174 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:45:16,177 - TradingBot - ERROR - Unexpected error: Client.start() got an unexpected keyword argument 'bot'
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 221, in main_async
+    await client.start(DISCORD_TOKEN, reconnect=True)
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 27, in start
+    await super().start(token, bot=False, reconnect=reconnect)
+          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Client.start() got an unexpected keyword argument 'bot'
+2025-09-01 10:45:16,429 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:45:16,431 - TradingBot - ERROR - Fatal error: a coroutine was expected, got 1
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 247, in <module>
+    sys.exit(asyncio.run(main()))
+             ~~~~~~~~~~~^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 89, in run
+    raise ValueError("a coroutine was expected, got {!r}".format(coro))
+ValueError: a coroutine was expected, got 1
+2025-09-01 10:46:46,513 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:46:46,519 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:46:46,519 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:46:46,520 - discord.client - INFO - logging in using static token
+2025-09-01 10:46:46,749 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:46:47,000 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:46:47,001 - TradingBot - ERROR - Fatal error: a coroutine was expected, got 1
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 249, in <module>
+    sys.exit(asyncio.run(main()))
+             ~~~~~~~~~~~^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 89, in run
+    raise ValueError("a coroutine was expected, got {!r}".format(coro))
+ValueError: a coroutine was expected, got 1
+2025-09-01 10:49:02,586 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:49:02,588 - TradingBot - ERROR - Missing required environment variables: DISCORD_USER_TOKEN
+2025-09-01 10:49:02,588 - TradingBot - INFO - Please update your .env file with the following variables:
+2025-09-01 10:49:02,588 - TradingBot - INFO - DISCORD_USER_TOKEN=your_discord_user_token
+2025-09-01 10:49:02,588 - TradingBot - INFO - DISCORD_CHANNEL_IDS=channel_id1,channel_id2,...
+2025-09-01 10:49:02,588 - TradingBot - INFO - KRAKEN_API_KEY=your_kraken_api_key
+2025-09-01 10:49:02,588 - TradingBot - INFO - KRAKEN_SECRET=your_kraken_secret
+2025-09-01 10:49:43,168 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:49:43,173 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:49:43,174 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:49:43,175 - discord.client - INFO - logging in using static token
+2025-09-01 10:49:43,435 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:49:43,687 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:50:26,772 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:50:26,777 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:50:26,778 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:50:26,779 - discord.client - INFO - logging in using static token
+2025-09-01 10:50:26,967 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:50:27,219 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:50:52,636 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:50:52,642 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:50:52,642 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:50:52,643 - discord.client - INFO - logging in using static token
+2025-09-01 10:50:52,859 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:50:53,111 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:51:09,875 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:51:09,880 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:51:09,880 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:51:09,880 - TradingBot - ERROR - Unexpected error: 'HTTPClient' object has no attribute '_token'
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 237, in main_async
+    await client.start(DISCORD_TOKEN)
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 31, in start
+    self.http._token(token, bot=False)
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'HTTPClient' object has no attribute '_token'. Did you mean: 'token'?
+2025-09-01 10:51:10,139 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:52:04,382 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:52:04,387 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:52:04,387 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:52:04,388 - discord.client - INFO - logging in using static token
+2025-09-01 10:52:04,640 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:52:04,892 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:56:00,603 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:56:17,281 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:56:17,286 - TradingBot - INFO - Starting Discord client...
+2025-09-01 10:56:17,286 - discord.client - INFO - logging in using static token
+2025-09-01 10:56:17,468 - TradingBot - ERROR - Failed to log in to Discord: Improper token has been passed.

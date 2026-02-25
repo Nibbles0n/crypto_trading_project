@@ -1,0 +1,18 @@
+//@version=6
+indicator("SMAs Crossover", overlay=true)
+length1 = input.int(9, title="SMA Length 1")
+length2 = input.int(21, title="SMA Length 2")
+colorUp = input.color(color.green, title="Crossover Up Color")
+colorDown = input.color(color.red, title="Crossover Down Color")
+
+sma1 = ta.sma(close, length1)
+sma2 = ta.sma(close, length2)
+
+plot(sma1, color=color.blue, title="SMA 1")
+plot(sma2, color=color.orange, title="SMA 2")
+
+crossover = ta.crossover(sma1, sma2)
+crossunder = ta.crossunder(sma1, sma2)
+
+bgcolor(crossover ? colorUp : na)
+bgcolor(crossunder ? colorDown : na)

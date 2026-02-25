@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bananas Trading System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0b0e;
+            --bg-secondary: #0f1115;
+            --bg-card: #14161c;
+            --bg-card-hover: #1a1d25;
+            --accent: #c9a227;
+            --accent-glow: rgba(201, 162, 39, 0.3);
+            --accent-dim: #9a7b1d;
+            --green: #22c55e;
+            --green-glow: rgba(34, 197, 94, 0.25);
+            --green-dim: #16a34a;
+            --red: #ef4444;
+            --red-glow: rgba(239, 68, 68, 0.25);
+            --red-dim: #dc2626;
+            --blue: #3b82f6;
+            --blue-glow: rgba(59, 130, 246, 0.25);
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-dim: #64748b;
+            --border: #1e293b;
+            --border-light: #334155;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: #000;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .mode-badge {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .mode-badge.live {
+            background: var(--green-glow);
+            color: var(--green);
+            border: 1px solid var(--green);
+            box-shadow: 0 0 20px var(--green-glow);
+        }
+        
+        .mode-badge.sim {
+            background: var(--blue-glow);
+            color: var(--blue);
+            border: 1px solid var(--blue);
+        }
+        
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .logout-btn:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+        
+        /* Connection Status Bar */
+        .connections {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        .connection-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .connection-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .connection-dot.connected {
+            background: var(--green);
+            box-shadow: 0 0 10px var(--green-glow);
+        }
+        
+        .connection-dot.connected::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: var(--green);
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        .connection-dot.disconnected {
+            background: var(--text-dim);
+        }
+        
+        .connection-dot.error {
+            background: var(--red);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        .connection-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .connection-status {
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .connection-status.ok { color: var(--green); }
+        .connection-status.off { color: var(--text-dim); }
+        .connection-status.error { color: var(--red); }
+        
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 24px;
+        }
+        
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        @media (max-width: 900px) {
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        
+        .stat-card:hover {
+            border-color: var(--border-light);
+            background: var(--bg-card-hover);
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stat-value.running {
+            color: var(--green);
+        }
+        
+        .stat-value.stopped {
+            color: var(--text-dim);
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .status-indicator.active {
+            background: var(--green);
+            box-shadow: 0 0 12px var(--green-glow);
+        }
+        
+        .status-indicator.active::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: var(--green);
+            opacity: 0.4;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-indicator.inactive {
+            background: var(--text-dim);
+        }
+        
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-start {
+            background: var(--green);
+            color: #000;
+            box-shadow: 0 4px 20px var(--green-glow);
+        }
+        
+        .btn-start:hover:not(:disabled) {
+            background: var(--green-dim);
+            box-shadow: 0 6px 30px var(--green-glow);
+        }
+        
+        .btn-stop {
+            background: var(--bg-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-stop:hover:not(:disabled) {
+            border-color: var(--text-dim);
+        }
+        
+        .btn-exit {
+            background: var(--red);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--red-glow);
+        }
+        
+        .btn-exit:hover:not(:disabled) {
+            background: var(--red-dim);
+        }
+        
+        .spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        
+        .btn.loading .spinner {
+            display: block;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Section Cards */
+        .section-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .section-badge {
+            background: var(--accent);
+            color: #000;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        
+        .section-content {
+            padding: 16px 20px;
+        }
+        
+        /* P&L Chart */
+        .pnl-chart-container {
+            margin-bottom: 24px;
+        }
+        
+        .pnl-chart {
+            height: 180px;
+            position: relative;
+            background: linear-gradient(180deg, transparent 0%, rgba(201, 162, 39, 0.02) 100%);
+        }
+        
+        .pnl-chart canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        
+        .pnl-summary {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+        }
+        
+        .pnl-item {
+            text-align: center;
+        }
+        
+        .pnl-item-label {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .pnl-item-value {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        
+        .pnl-item-value.positive { color: var(--green); }
+        .pnl-item-value.negative { color: var(--red); }
+        
+        /* Token List */
+        .token-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .token-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .token-item:last-child {
+            border-bottom: none;
+        }
+        
+        .token-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .token-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .token-icon.in-position {
+            background: var(--accent-glow);
+            color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        
+        .token-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .token-pair {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+        
+        .token-price {
+            text-align: right;
+        }
+        
+        .token-price-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .token-change {
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .token-change.positive { color: var(--green); }
+        .token-change.negative { color: var(--red); }
+        
+        /* Positions */
+        .positions-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .position-card {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        
+        .position-card:hover {
+            border-color: var(--border-light);
+        }
+        
+        .position-card:last-child {
+            margin-bottom: 0;
+        }
+        
+        .position-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .position-token {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .position-token-name {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .position-rating {
+            background: var(--accent);
+            color: #000;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .position-pnl {
+            text-align: right;
+        }
+        
+        .position-pnl-pct {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .position-pnl-pct.positive { 
+            color: var(--green);
+            text-shadow: 0 0 20px var(--green-glow);
+        }
+        
+        .position-pnl-pct.negative { 
+            color: var(--red);
+            text-shadow: 0 0 20px var(--red-glow);
+        }
+        
+        .position-pnl-dollar {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .position-details {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .position-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .position-detail-label {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .position-detail-value {
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-dim);
+        }
+        
+        .empty-state-text {
+            font-size: 14px;
+        }
+        
+        /* Activity Log */
+        .log-container {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+        
+        .log-entry.entry { color: var(--green); }
+        .log-entry.exit { color: var(--red); }
+        .log-entry.error { color: var(--red); }
+        .log-entry.success { color: var(--green); }
+        .log-entry.info { color: var(--blue); }
+        
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        /* Last Update */
+        .last-update {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 12px;
+            padding-top: 16px;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-light);
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-dim);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">B</div>
+                <span class="logo-text">BANANAS TRADING</span>
+            </div>
+            <div class="header-actions">
+                <div class="mode-badge sim" id="modeBadge">SIMULATION</div>
+                <a href="/logout" class="logout-btn">Logout</a>
+            </div>
+        </header>
+        
+        <!-- Connection Status -->
+        <div class="connections">
+            <div class="connection-item">
+                <div class="connection-dot disconnected" id="binanceDot"></div>
+                <span class="connection-label">Binance</span>
+                <span class="connection-status off" id="binanceStatus">Disconnected</span>
+            </div>
+            <div class="connection-item">
+                <div class="connection-dot disconnected" id="krakenDot"></div>
+                <span class="connection-label">Kraken</span>
+                <span class="connection-status off" id="krakenStatus">Not Configured</span>
+            </div>
+            <div class="connection-item">
+                <div class="connection-dot disconnected" id="telegramDot"></div>
+                <span class="connection-label">Telegram</span>
+                <span class="connection-status off" id="telegramStatus">Disabled</span>
+            </div>
+        </div>
+        
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-label">Status</div>
+                <div class="stat-value stopped" id="botStatus">
+                    <div class="status-indicator inactive" id="statusIndicator"></div>
+                    <span id="statusText">STOPPED</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Capital</div>
+                <div class="stat-value" id="capitalValue">$0.00</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Positions</div>
+                <div class="stat-value"><span id="positionsCount">0</span>/<span id="maxPositions">5</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Tokens</div>
+                <div class="stat-value" id="tokensCount">0</div>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn btn-start" id="startBtn" onclick="startBot()">
+                <span class="spinner"></span>
+                START
+            </button>
+            <button class="btn btn-stop" id="stopBtn" onclick="stopBot()">
+                <span class="spinner"></span>
+                STOP
+            </button>
+            <button class="btn btn-exit" id="exitAllBtn" onclick="exitAll()">
+                <span class="spinner"></span>
+                EXIT ALL
+            </button>
+        </div>
+        
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <div class="main-content">
+                <!-- P&L Chart -->
+                <div class="section-card pnl-chart-container">
+                    <div class="section-header">
+                        <span class="section-title">Performance</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="pnl-chart">
+                            <canvas id="pnlChart"></canvas>
+                        </div>
+                        <div class="pnl-summary">
+                            <div class="pnl-item">
+                                <div class="pnl-item-label">Current P&L</div>
+                                <div class="pnl-item-value" id="currentPnl">0.00%</div>
+                            </div>
+                            <div class="pnl-item">
+                                <div class="pnl-item-label">Peak</div>
+                                <div class="pnl-item-value positive" id="peakPnl">0.00%</div>
+                            </div>
+                            <div class="pnl-item">
+                                <div class="pnl-item-label">Drawdown</div>
+                                <div class="pnl-item-value negative" id="drawdown">0.00%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Open Positions -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <span class="section-title">Open Positions</span>
+                        <span class="section-badge" id="positionBadge">0</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="positions-list" id="positionsList">
+                            <div class="empty-state">
+                                <p class="empty-state-text">No open positions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Activity Log -->
+                <div class="section-card" style="margin-top: 24px;">
+                    <div class="section-header">
+                        <span class="section-title">Activity Log</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="log-container" id="logContainer">
+                            <div class="log-entry">Waiting for activity...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Token List -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <span class="section-title">Tokens</span>
+                        <span class="section-badge" id="tokenBadge">0</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="token-list" id="tokenList">
+                            <div class="empty-state">
+                                <p class="empty-state-text">Loading tokens...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="last-update">
+            Last update: <span id="lastUpdate">Never</span>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // State
+        let pnlChart = null;
+        let isRefreshing = false;
+        
+        // Initialize Chart
+        function initChart() {
+            const ctx = document.getElementById('pnlChart').getContext('2d');
+            
+            const gradient = ctx.createLinearGradient(0, 0, 0, 180);
+            gradient.addColorStop(0, 'rgba(201, 162, 39, 0.3)');
+            gradient.addColorStop(1, 'rgba(201, 162, 39, 0)');
+            
+            pnlChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'P&L %',
+                        data: [],
+                        borderColor: '#c9a227',
+                        backgroundColor: gradient,
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        pointHoverBackgroundColor: '#c9a227',
+                        pointHoverBorderColor: '#fff',
+                        pointHoverBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#14161c',
+                            borderColor: '#1e293b',
+                            borderWidth: 1,
+                            titleColor: '#f1f5f9',
+                            bodyColor: '#94a3b8',
+                            displayColors: false,
+                            callbacks: {
+                                label: (context) => `P&L: ${context.parsed.y.toFixed(2)}%`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: false
+                        },
+                        y: {
+                            display: true,
+                            grid: {
+                                color: 'rgba(30, 41, 59, 0.5)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#64748b',
+                                font: { size: 10 },
+                                callback: (value) => value + '%'
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+        }
+        
+        // API calls
+        async function fetchStatus() {
+            try {
+                const res = await fetch('/api/status');
+                if (!res.ok) throw new Error('Failed to fetch status');
+                return await res.json();
+            } catch (e) {
+                console.error('Status fetch error:', e);
+                return null;
+            }
+        }
+        
+        async function fetchPositions() {
+            try {
+                const res = await fetch('/api/positions');
+                if (!res.ok) throw new Error('Failed to fetch positions');
+                return await res.json();
+            } catch (e) {
+                console.error('Positions fetch error:', e);
+                return [];
+            }
+        }
+        
+        async function fetchTokens() {
+            try {
+                const res = await fetch('/api/tokens');
+                if (!res.ok) throw new Error('Failed to fetch tokens');
+                return await res.json();
+            } catch (e) {
+                console.error('Tokens fetch error:', e);
+                return [];
+            }
+        }
+        
+        async function fetchPnlHistory() {
+            try {
+                const res = await fetch('/api/pnl_history');
+                if (!res.ok) throw new Error('Failed to fetch P&L history');
+                return await res.json();
+            } catch (e) {
+                console.error('P&L history fetch error:', e);
+                return [];
+            }
+        }
+        
+        async function fetchLogs() {
+            try {
+                const res = await fetch('/api/logs');
+                if (!res.ok) throw new Error('Failed to fetch logs');
+                const data = await res.json();
+                return data.logs || [];
+            } catch (e) {
+                console.error('Logs fetch error:', e);
+                return [];
+            }
+        }
+        
+        // Actions
+        async function startBot() {
+            const btn = document.getElementById('startBtn');
+            btn.classList.add('loading');
+            btn.disabled = true;
+            
+            try {
+                const res = await fetch('/api/start', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    await refreshAll();
+                } else {
+                    alert(data.message || 'Failed to start bot');
+                }
+            } catch (e) {
+                alert('Error starting bot: ' + e.message);
+            } finally {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
+        
+        async function stopBot() {
+            const btn = document.getElementById('stopBtn');
+            btn.classList.add('loading');
+            btn.disabled = true;
+            
+            try {
+                const res = await fetch('/api/stop', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    await refreshAll();
+                } else {
+                    alert(data.message || 'Failed to stop bot');
+                }
+            } catch (e) {
+                alert('Error stopping bot: ' + e.message);
+            } finally {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
+        
+        async function exitAll() {
+            if (!confirm('Are you sure you want to EXIT ALL positions immediately? This action cannot be undone.')) {
+                return;
+            }
+            
+            const btn = document.getElementById('exitAllBtn');
+            btn.classList.add('loading');
+            btn.disabled = true;
+            
+            try {
+                const res = await fetch('/api/exit_all', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    alert(`Exited ${data.exits.length} positions`);
+                    await refreshAll();
+                } else {
+                    alert('Failed to exit positions');
+                }
+            } catch (e) {
+                alert('Error exiting positions: ' + e.message);
+            } finally {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
+        
+        // UI Updates
+        function updateConnections(connections) {
+            // Binance
+            const binanceDot = document.getElementById('binanceDot');
+            const binanceStatus = document.getElementById('binanceStatus');
+            if (connections.binance?.connected) {
+                binanceDot.className = 'connection-dot connected';
+                binanceStatus.className = 'connection-status ok';
+                binanceStatus.textContent = 'Connected';
+            } else {
+                binanceDot.className = 'connection-dot disconnected';
+                binanceStatus.className = 'connection-status off';
+                binanceStatus.textContent = 'Disconnected';
+            }
+            
+            // Kraken
+            const krakenDot = document.getElementById('krakenDot');
+            const krakenStatus = document.getElementById('krakenStatus');
+            if (connections.kraken?.live_trading) {
+                krakenDot.className = 'connection-dot connected';
+                krakenStatus.className = 'connection-status ok';
+                krakenStatus.textContent = 'Live Trading';
+            } else if (connections.kraken?.configured) {
+                krakenDot.className = 'connection-dot error';
+                krakenStatus.className = 'connection-status error';
+                krakenStatus.textContent = 'Error';
+            } else {
+                krakenDot.className = 'connection-dot disconnected';
+                krakenStatus.className = 'connection-status off';
+                krakenStatus.textContent = 'Not Configured';
+            }
+            
+            // Telegram
+            const telegramDot = document.getElementById('telegramDot');
+            const telegramStatus = document.getElementById('telegramStatus');
+            if (connections.telegram?.connected) {
+                telegramDot.className = 'connection-dot connected';
+                telegramStatus.className = 'connection-status ok';
+                telegramStatus.textContent = 'Connected';
+            } else if (connections.telegram?.enabled) {
+                telegramDot.className = 'connection-dot error';
+                telegramStatus.className = 'connection-status error';
+                telegramStatus.textContent = 'Error';
+            } else {
+                telegramDot.className = 'connection-dot disconnected';
+                telegramStatus.className = 'connection-status off';
+                telegramStatus.textContent = 'Disabled';
+            }
+        }
+        
+        function updateStatus(status) {
+            if (!status) return;
+            
+            // Mode badge
+            const modeBadge = document.getElementById('modeBadge');
+            if (status.live_trading) {
+                modeBadge.className = 'mode-badge live';
+                modeBadge.textContent = 'LIVE TRADING';
+            } else {
+                modeBadge.className = 'mode-badge sim';
+                modeBadge.textContent = 'SIMULATION';
+            }
+            
+            // Bot status
+            const statusValue = document.getElementById('botStatus');
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            if (status.running) {
+                statusValue.className = 'stat-value running';
+                indicator.className = 'status-indicator active';
+                statusText.textContent = 'RUNNING';
+            } else {
+                statusValue.className = 'stat-value stopped';
+                indicator.className = 'status-indicator inactive';
+                statusText.textContent = 'STOPPED';
+            }
+            
+            // Stats
+            document.getElementById('capitalValue').textContent = 
+                '$' + (status.capital || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('positionsCount').textContent = status.position_count || 0;
+            document.getElementById('maxPositions').textContent = status.max_holdings || 5;
+            document.getElementById('tokensCount').textContent = (status.tokens || []).length;
+            
+            // Connections
+            if (status.connections) {
+                updateConnections(status.connections);
+            }
+        }
+        
+        function updateTokens(tokens) {
+            const list = document.getElementById('tokenList');
+            const badge = document.getElementById('tokenBadge');
+            
+            badge.textContent = tokens.length;
+            
+            if (tokens.length === 0) {
+                list.innerHTML = '<div class="empty-state"><p class="empty-state-text">No tokens configured</p></div>';
+                return;
+            }
+            
+            list.innerHTML = tokens.map(token => {
+                const changeClass = token.change_pct >= 0 ? 'positive' : 'negative';
+                const changeSign = token.change_pct >= 0 ? '+' : '';
+                const iconClass = token.in_position ? 'token-icon in-position' : 'token-icon';
+                
+                return `
+                    <div class="token-item">
+                        <div class="token-info">
+                            <div class="${iconClass}">${token.token.substring(0, 2)}</div>
+                            <div>
+                                <div class="token-name">${token.token}</div>
+                                <div class="token-pair">${token.token}/USD</div>
+                            </div>
+                        </div>
+                        <div class="token-price">
+                            <div class="token-price-value">$${token.price?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}</div>
+                            <div class="token-change ${changeClass}">${changeSign}${token.change_pct?.toFixed(2) || '0.00'}%</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function updatePositions(positions) {
+            const list = document.getElementById('positionsList');
+            const badge = document.getElementById('positionBadge');
+            
+            badge.textContent = positions.length;
+            
+            if (positions.length === 0) {
+                list.innerHTML = '<div class="empty-state"><p class="empty-state-text">No open positions</p></div>';
+                return;
+            }
+            
+            list.innerHTML = positions.map(pos => {
+                const pnlClass = pos.pnl_pct >= 0 ? 'positive' : 'negative';
+                const pnlSign = pos.pnl_pct >= 0 ? '+' : '';
+                
+                return `
+                    <div class="position-card">
+                        <div class="position-header">
+                            <div class="position-token">
+                                <span class="position-token-name">${pos.token}</span>
+                                <span class="position-rating">${pos.signal_rating}</span>
+                            </div>
+                            <div class="position-pnl">
+                                <div class="position-pnl-pct ${pnlClass}">${pnlSign}${pos.pnl_pct?.toFixed(2) || '0.00'}%</div>
+                                <div class="position-pnl-dollar">${pnlSign}$${(pos.pnl_dollar || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                            </div>
+                        </div>
+                        <div class="position-details">
+                            <div class="position-detail">
+                                <span class="position-detail-label">Entry</span>
+                                <span class="position-detail-value">$${pos.entry_price?.toLocaleString('en-US', { minimumFractionDigits: 2 }) || '0.00'}</span>
+                            </div>
+                            <div class="position-detail">
+                                <span class="position-detail-label">Current</span>
+                                <span class="position-detail-value">$${pos.current_price?.toLocaleString('en-US', { minimumFractionDigits: 2 }) || '0.00'}</span>
+                            </div>
+                            <div class="position-detail">
+                                <span class="position-detail-label">Bars</span>
+                                <span class="position-detail-value">${pos.bars_held || 0}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function updatePnlChart(history) {
+            if (!pnlChart || !history || history.length === 0) return;
+            
+            const labels = history.map((_, i) => i);
+            const data = history.map(h => h.pnl_pct || 0);
+            
+            pnlChart.data.labels = labels;
+            pnlChart.data.datasets[0].data = data;
+            pnlChart.update('none');
+            
+            // Update summary
+            const currentPnl = data[data.length - 1] || 0;
+            const peakPnl = Math.max(...data, 0);
+            const drawdown = peakPnl > 0 ? ((peakPnl - currentPnl) / peakPnl * 100) : 0;
+            
+            const currentEl = document.getElementById('currentPnl');
+            currentEl.textContent = (currentPnl >= 0 ? '+' : '') + currentPnl.toFixed(2) + '%';
+            currentEl.className = 'pnl-item-value ' + (currentPnl >= 0 ? 'positive' : 'negative');
+            
+            document.getElementById('peakPnl').textContent = '+' + peakPnl.toFixed(2) + '%';
+            document.getElementById('drawdown').textContent = '-' + drawdown.toFixed(2) + '%';
+        }
+        
+        function updateLogs(logs) {
+            const container = document.getElementById('logContainer');
+            
+            if (logs.length === 0) {
+                container.innerHTML = '<div class="log-entry">No recent activity</div>';
+                return;
+            }
+            
+            const recentLogs = logs.slice(-20).reverse();
+            
+            container.innerHTML = recentLogs.map(log => {
+                let className = 'log-entry';
+                if (log.includes('LONG') || log.includes('Entry')) className += ' entry';
+                else if (log.includes('EXIT') || log.includes('exit')) className += ' exit';
+                else if (log.includes('error') || log.includes('Error') || log.includes('CRITICAL')) className += ' error';
+                else if (log.includes('started') || log.includes('filled')) className += ' success';
+                else if (log.includes('Processed') || log.includes('Processing')) className += ' info';
+                
+                return `<div class="${className}">${log}</div>`;
+            }).join('');
+        }
+        
+        function updateLastUpdate() {
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+        }
+        
+        // Main refresh
+        async function refreshAll() {
+            if (isRefreshing) return;
+            isRefreshing = true;
+            
+            try {
+                const [status, positions, tokens, pnlHistory, logs] = await Promise.all([
+                    fetchStatus(),
+                    fetchPositions(),
+                    fetchTokens(),
+                    fetchPnlHistory(),
+                    fetchLogs()
+                ]);
+                
+                updateStatus(status);
+                updatePositions(positions);
+                updateTokens(tokens);
+                updatePnlChart(pnlHistory);
+                updateLogs(logs);
+                updateLastUpdate();
+            } catch (e) {
+                console.error('Refresh error:', e);
+            } finally {
+                isRefreshing = false;
+            }
+        }
+        
+        // Initialize
+        initChart();
+        refreshAll();
+        
+        // Auto-refresh every 10 seconds
+        setInterval(refreshAll, 10000);
+    </script>
+</body>
+</html>

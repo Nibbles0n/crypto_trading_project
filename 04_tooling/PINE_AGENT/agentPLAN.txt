@@ -1,0 +1,91 @@
+from mlx_lm import load, generate
+import json
+import sqlite3
+
+#=======================
+# SETUP
+#=======================
+MODELS = {
+    'plan': 'mlx-community/Qwen2.5-Coder-14B-Instruct-4bit',
+    'code': 'mlx-community/Qwen2.5-Coder-7B-Instruct-4bit',
+    'debug': 'mlx-community/granite-4.0-h-1b-4bit'
+}
+
+#=======================
+# TOOLS
+#=======================
+
+# FIND IN CODE
+# Input search; output list of instances that it was found in the code
+
+# READ LINES
+# Input lines to read; returns those lines
+
+# FIND IN DOCUMENTATION
+# Input search list; returns documentation for those inputs
+
+# REPLACE LINES
+# Input lines to replace and code to replace it with;
+
+# ADD TODOs
+# Input TODOs; add TODOs to the todo list
+
+# MAK TODO COMPLETED
+# Input TODO, has to be exact match to ensuer no false calls; moves todo to the DONE list
+
+# ADD GOAL
+# Input GOAL; saves goal (this is only ever used once)
+
+# DONE
+# SAY IT IS DONE WITH THE TODOS AND HAS ACHEVIED THE GOAL
+
+# DOES LINE FOLLOW DOCUMENTATION
+# Input line + relevant documentation; returns y/n + error reason
+
+#=======================
+# UNDERSTAND PROJECT
+#=======================
+
+# get prompt from user and combine it with the current state of the script wich is script.txt
+
+# dialoge with user until the user types in ACT with nothing else
+
+#=======================
+# CREATE TODOS AND GOAL
+#=======================
+
+# TOOL CALL 1 askes the plan model to use the ADD GOAL tool to create the projects goal
+
+# ADD TODOs makes a set of todos wich via the todo tool call get saved
+
+#=======================
+# WRITE SCRIPT
+#=======================
+
+#LOOP
+# READ LINES (code model)
+# FIND IN DOCUMENTATION (debug model)
+# REPLACE LINES (code model)
+# MARK TODO AS DONE (code model)
+# DONE to exit this loop (all todos must be done)
+
+#=======================
+# CHECK SCRIPT
+#=======================
+
+#LOOP
+# READ line x (debug model)
+# FIND IN DOCUMENTATION for that line (debug model)
+# DOES IT FOLLOW DOCUMENTATION? (debug model)
+# If problem ADD TODO (debug model)
+# x += 1
+# exit when script is done
+
+# if errors where found go back to WRITE SCRIPT
+
+#=======================
+# FINAL CHECK
+#=======================
+
+# Look at entire script, project goals, todos and make sure everything looks right (planning model)
+# if it doesnt add more todos and go back to write script

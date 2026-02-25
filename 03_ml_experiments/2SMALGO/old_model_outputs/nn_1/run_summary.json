@@ -1,0 +1,1 @@
+{"best_params":{"lr":0.0003596659,"weight_decay":0.0000056133,"batch_size":256,"dropout":0.0208041757,"optimizer":"adamw","use_scheduler":true,"n_epochs":46},"device":"mps","time_seconds":341.3580479622,"best_validation_threshold":0.1118510142,"best_validation_f1_at_thresh":0.2410966924}

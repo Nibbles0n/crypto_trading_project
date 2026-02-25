@@ -1,0 +1,31 @@
+{
+  "config": {
+    "input_dir": "input_data",
+    "output_dir": "price_relative",
+    "profit_threshold": 1.0,
+    "sma_short": 24,
+    "sma_long": 25,
+    "sma_medium": 30,
+    "sma_very_long": 240,
+    "lookback_long": 40,
+    "lookback_short": 5
+  },
+  "processed_files": [
+    "HOOKUSDT.csv",
+    "ARBUSDT.csv",
+    "ORCAUSDT.csv",
+    "AGIXUSDT.csv",
+    "FLOKIUSDT.csv",
+    "RADUSDT.csv",
+    "DARUSDT.csv",
+    "DATAUSDT.csv",
+    "PENDLEUSDT.csv",
+    "AUDIOUSDT.csv",
+    "C98USDT.csv",
+    "NKNUSDT.csv",
+    "JUPUSDT.csv",
+    "GMTUSDT.csv",
+    "MAGICUSDT.csv"
+  ],
+  "last_updated": "2025-10-15T13:27:42.763491"
+}

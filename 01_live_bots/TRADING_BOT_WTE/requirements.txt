@@ -1,0 +1,20 @@
+# Bananas Trading Bot - Python Dependencies
+
+# Exchange API
+ccxt>=4.0.0
+
+# Web framework for REST API
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# Telegram notifications
+python-telegram-bot>=20.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# HTTP requests
+requests>=2.31.0
+
+# Numerical computations
+numpy>=1.24.0

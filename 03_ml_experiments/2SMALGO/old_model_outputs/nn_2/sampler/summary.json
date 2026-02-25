@@ -1,0 +1,13 @@
+{
+  "name": "sampler",
+  "best_epoch": 12,
+  "best_val_loss": 0.6752630475212689,
+  "best_val_f1": 0.24274875022171194,
+  "best_thresh": 0.47086042165756226,
+  "val_auc": 0.5933836770596235,
+  "val_auprc": 0.17170134549048058,
+  "precision_at_best": 0.15331110968651837,
+  "recall_at_best": 0.582653185528079,
+  "train_time_sec": 86.39817881584167,
+  "history_csv": "model_output/nn_report/sampler/training_history.csv"
+}

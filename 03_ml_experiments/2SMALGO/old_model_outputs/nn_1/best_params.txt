@@ -1,0 +1,1 @@
+{'lr': 0.00035966592392080483, 'weight_decay': 5.613327721919392e-06, 'batch_size': 256, 'dropout': 0.0208041757028031, 'optimizer': 'adamw', 'use_scheduler': True, 'n_epochs': 46}

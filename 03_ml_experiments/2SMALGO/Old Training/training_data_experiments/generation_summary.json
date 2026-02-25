@@ -1,0 +1,876 @@
+{
+  "config": {
+    "lookback_long": 40,
+    "lookback_short": 5,
+    "profit_threshold": 1.0,
+    "sma_short": 23,
+    "sma_long": 25,
+    "sma_medium": 30,
+    "sma_very_long": 240
+  },
+  "strategies": {
+    "hlmm": "HLMM summaries (your current approach)",
+    "raw_sequential": "Raw values at specific time points",
+    "derivatives": "Slopes, accelerations, volatility",
+    "crossover_context": "Features specific to crossover moment",
+    "multi_timeframe": "Long-term trend alignment",
+    "price_relative": "Price positions relative to indicators",
+    "combined_best": "Combination of top features"
+  },
+  "results": {
+    "hlmm": [
+      {
+        "total_examples": 33862,
+        "positive_class": 4410,
+        "negative_class": 29452,
+        "class_ratio": 6.678458049886621,
+        "num_features": 16,
+        "input_file": "NKNUSDT.csv"
+      },
+      {
+        "total_examples": 13464,
+        "positive_class": 1685,
+        "negative_class": 11779,
+        "class_ratio": 6.990504451038576,
+        "num_features": 16,
+        "input_file": "FLOKIUSDT.csv"
+      },
+      {
+        "total_examples": 13888,
+        "positive_class": 1470,
+        "negative_class": 12418,
+        "class_ratio": 8.447619047619048,
+        "num_features": 16,
+        "input_file": "ARBUSDT.csv"
+      },
+      {
+        "total_examples": 4558,
+        "positive_class": 589,
+        "negative_class": 3969,
+        "class_ratio": 6.738539898132428,
+        "num_features": 16,
+        "input_file": "ORCAUSDT.csv"
+      },
+      {
+        "total_examples": 7822,
+        "positive_class": 946,
+        "negative_class": 6876,
+        "class_ratio": 7.268498942917548,
+        "num_features": 16,
+        "input_file": "AGIXUSDT.csv"
+      },
+      {
+        "total_examples": 30673,
+        "positive_class": 3787,
+        "negative_class": 26886,
+        "class_ratio": 7.099551095854238,
+        "num_features": 16,
+        "input_file": "DATAUSDT.csv"
+      },
+      {
+        "total_examples": 19751,
+        "positive_class": 2286,
+        "negative_class": 17465,
+        "class_ratio": 7.639982502187227,
+        "num_features": 16,
+        "input_file": "GMTUSDT.csv"
+      },
+      {
+        "total_examples": 17941,
+        "positive_class": 2107,
+        "negative_class": 15834,
+        "class_ratio": 7.514950166112957,
+        "num_features": 16,
+        "input_file": "DARUSDT.csv"
+      },
+      {
+        "total_examples": 15308,
+        "positive_class": 1963,
+        "negative_class": 13345,
+        "class_ratio": 6.798267957208354,
+        "num_features": 16,
+        "input_file": "HOOKUSDT.csv"
+      },
+      {
+        "total_examples": 27744,
+        "positive_class": 3491,
+        "negative_class": 24253,
+        "class_ratio": 6.947293039243769,
+        "num_features": 16,
+        "input_file": "AUDIOUSDT.csv"
+      },
+      {
+        "total_examples": 12225,
+        "positive_class": 1619,
+        "negative_class": 10606,
+        "class_ratio": 6.550957381099444,
+        "num_features": 16,
+        "input_file": "PENDLEUSDT.csv"
+      },
+      {
+        "total_examples": 15346,
+        "positive_class": 2016,
+        "negative_class": 13330,
+        "class_ratio": 6.612103174603175,
+        "num_features": 16,
+        "input_file": "MAGICUSDT.csv"
+      },
+      {
+        "total_examples": 23014,
+        "positive_class": 2883,
+        "negative_class": 20131,
+        "class_ratio": 6.982656954561221,
+        "num_features": 16,
+        "input_file": "C98USDT.csv"
+      },
+      {
+        "total_examples": 9074,
+        "positive_class": 1237,
+        "negative_class": 7837,
+        "class_ratio": 6.335489086499596,
+        "num_features": 16,
+        "input_file": "JUPUSDT.csv"
+      },
+      {
+        "total_examples": 22908,
+        "positive_class": 2346,
+        "negative_class": 20562,
+        "class_ratio": 8.764705882352942,
+        "num_features": 16,
+        "input_file": "RADUSDT.csv"
+      }
+    ],
+    "raw_sequential": [
+      {
+        "total_examples": 33862,
+        "positive_class": 4410,
+        "negative_class": 29452,
+        "class_ratio": 6.678458049886621,
+        "num_features": 16,
+        "input_file": "NKNUSDT.csv"
+      },
+      {
+        "total_examples": 13464,
+        "positive_class": 1685,
+        "negative_class": 11779,
+        "class_ratio": 6.990504451038576,
+        "num_features": 16,
+        "input_file": "FLOKIUSDT.csv"
+      },
+      {
+        "total_examples": 13888,
+        "positive_class": 1470,
+        "negative_class": 12418,
+        "class_ratio": 8.447619047619048,
+        "num_features": 16,
+        "input_file": "ARBUSDT.csv"
+      },
+      {
+        "total_examples": 4558,
+        "positive_class": 589,
+        "negative_class": 3969,
+        "class_ratio": 6.738539898132428,
+        "num_features": 16,
+        "input_file": "ORCAUSDT.csv"
+      },
+      {
+        "total_examples": 7822,
+        "positive_class": 946,
+        "negative_class": 6876,
+        "class_ratio": 7.268498942917548,
+        "num_features": 16,
+        "input_file": "AGIXUSDT.csv"
+      },
+      {
+        "total_examples": 30673,
+        "positive_class": 3787,
+        "negative_class": 26886,
+        "class_ratio": 7.099551095854238,
+        "num_features": 16,
+        "input_file": "DATAUSDT.csv"
+      },
+      {
+        "total_examples": 19751,
+        "positive_class": 2286,
+        "negative_class": 17465,
+        "class_ratio": 7.639982502187227,
+        "num_features": 16,
+        "input_file": "GMTUSDT.csv"
+      },
+      {
+        "total_examples": 17941,
+        "positive_class": 2107,
+        "negative_class": 15834,
+        "class_ratio": 7.514950166112957,
+        "num_features": 16,
+        "input_file": "DARUSDT.csv"
+      },
+      {
+        "total_examples": 15308,
+        "positive_class": 1963,
+        "negative_class": 13345,
+        "class_ratio": 6.798267957208354,
+        "num_features": 16,
+        "input_file": "HOOKUSDT.csv"
+      },
+      {
+        "total_examples": 27744,
+        "positive_class": 3491,
+        "negative_class": 24253,
+        "class_ratio": 6.947293039243769,
+        "num_features": 16,
+        "input_file": "AUDIOUSDT.csv"
+      },
+      {
+        "total_examples": 12225,
+        "positive_class": 1619,
+        "negative_class": 10606,
+        "class_ratio": 6.550957381099444,
+        "num_features": 16,
+        "input_file": "PENDLEUSDT.csv"
+      },
+      {
+        "total_examples": 15346,
+        "positive_class": 2016,
+        "negative_class": 13330,
+        "class_ratio": 6.612103174603175,
+        "num_features": 16,
+        "input_file": "MAGICUSDT.csv"
+      },
+      {
+        "total_examples": 23014,
+        "positive_class": 2883,
+        "negative_class": 20131,
+        "class_ratio": 6.982656954561221,
+        "num_features": 16,
+        "input_file": "C98USDT.csv"
+      },
+      {
+        "total_examples": 9074,
+        "positive_class": 1237,
+        "negative_class": 7837,
+        "class_ratio": 6.335489086499596,
+        "num_features": 16,
+        "input_file": "JUPUSDT.csv"
+      },
+      {
+        "total_examples": 22908,
+        "positive_class": 2346,
+        "negative_class": 20562,
+        "class_ratio": 8.764705882352942,
+        "num_features": 16,
+        "input_file": "RADUSDT.csv"
+      }
+    ],
+    "derivatives": [
+      {
+        "total_examples": 33862,
+        "positive_class": 4410,
+        "negative_class": 29452,
+        "class_ratio": 6.678458049886621,
+        "num_features": 11,
+        "input_file": "NKNUSDT.csv"
+      },
+      {
+        "total_examples": 13464,
+        "positive_class": 1685,
+        "negative_class": 11779,
+        "class_ratio": 6.990504451038576,
+        "num_features": 11,
+        "input_file": "FLOKIUSDT.csv"
+      },
+      {
+        "total_examples": 13888,
+        "positive_class": 1470,
+        "negative_class": 12418,
+        "class_ratio": 8.447619047619048,
+        "num_features": 11,
+        "input_file": "ARBUSDT.csv"
+      },
+      {
+        "total_examples": 4558,
+        "positive_class": 589,
+        "negative_class": 3969,
+        "class_ratio": 6.738539898132428,
+        "num_features": 11,
+        "input_file": "ORCAUSDT.csv"
+      },
+      {
+        "total_examples": 7822,
+        "positive_class": 946,
+        "negative_class": 6876,
+        "class_ratio": 7.268498942917548,
+        "num_features": 11,
+        "input_file": "AGIXUSDT.csv"
+      },
+      {
+        "total_examples": 30673,
+        "positive_class": 3787,
+        "negative_class": 26886,
+        "class_ratio": 7.099551095854238,
+        "num_features": 11,
+        "input_file": "DATAUSDT.csv"
+      },
+      {
+        "total_examples": 19751,
+        "positive_class": 2286,
+        "negative_class": 17465,
+        "class_ratio": 7.639982502187227,
+        "num_features": 11,
+        "input_file": "GMTUSDT.csv"
+      },
+      {
+        "total_examples": 17941,
+        "positive_class": 2107,
+        "negative_class": 15834,
+        "class_ratio": 7.514950166112957,
+        "num_features": 11,
+        "input_file": "DARUSDT.csv"
+      },
+      {
+        "total_examples": 15308,
+        "positive_class": 1963,
+        "negative_class": 13345,
+        "class_ratio": 6.798267957208354,
+        "num_features": 11,
+        "input_file": "HOOKUSDT.csv"
+      },
+      {
+        "total_examples": 27744,
+        "positive_class": 3491,
+        "negative_class": 24253,
+        "class_ratio": 6.947293039243769,
+        "num_features": 11,
+        "input_file": "AUDIOUSDT.csv"
+      },
+      {
+        "total_examples": 12225,
+        "positive_class": 1619,
+        "negative_class": 10606,
+        "class_ratio": 6.550957381099444,
+        "num_features": 11,
+        "input_file": "PENDLEUSDT.csv"
+      },
+      {
+        "total_examples": 15346,
+        "positive_class": 2016,
+        "negative_class": 13330,
+        "class_ratio": 6.612103174603175,
+        "num_features": 11,
+        "input_file": "MAGICUSDT.csv"
+      },
+      {
+        "total_examples": 23014,
+        "positive_class": 2883,
+        "negative_class": 20131,
+        "class_ratio": 6.982656954561221,
+        "num_features": 11,
+        "input_file": "C98USDT.csv"
+      },
+      {
+        "total_examples": 9074,
+        "positive_class": 1237,
+        "negative_class": 7837,
+        "class_ratio": 6.335489086499596,
+        "num_features": 11,
+        "input_file": "JUPUSDT.csv"
+      },
+      {
+        "total_examples": 22908,
+        "positive_class": 2346,
+        "negative_class": 20562,
+        "class_ratio": 8.764705882352942,
+        "num_features": 11,
+        "input_file": "RADUSDT.csv"
+      }
+    ],
+    "crossover_context": [
+      {
+        "total_examples": 33862,
+        "positive_class": 4410,
+        "negative_class": 29452,
+        "class_ratio": 6.678458049886621,
+        "num_features": 10,
+        "input_file": "NKNUSDT.csv"
+      },
+      {
+        "total_examples": 13464,
+        "positive_class": 1685,
+        "negative_class": 11779,
+        "class_ratio": 6.990504451038576,
+        "num_features": 10,
+        "input_file": "FLOKIUSDT.csv"
+      },
+      {
+        "total_examples": 13888,
+        "positive_class": 1470,
+        "negative_class": 12418,
+        "class_ratio": 8.447619047619048,
+        "num_features": 10,
+        "input_file": "ARBUSDT.csv"
+      },
+      {
+        "total_examples": 4558,
+        "positive_class": 589,
+        "negative_class": 3969,
+        "class_ratio": 6.738539898132428,
+        "num_features": 10,
+        "input_file": "ORCAUSDT.csv"
+      },
+      {
+        "total_examples": 7822,
+        "positive_class": 946,
+        "negative_class": 6876,
+        "class_ratio": 7.268498942917548,
+        "num_features": 10,
+        "input_file": "AGIXUSDT.csv"
+      },
+      {
+        "total_examples": 30673,
+        "positive_class": 3787,
+        "negative_class": 26886,
+        "class_ratio": 7.099551095854238,
+        "num_features": 10,
+        "input_file": "DATAUSDT.csv"
+      },
+      {
+        "total_examples": 19751,
+        "positive_class": 2286,
+        "negative_class": 17465,
+        "class_ratio": 7.639982502187227,
+        "num_features": 10,
+        "input_file": "GMTUSDT.csv"
+      },
+      {
+        "total_examples": 17941,
+        "positive_class": 2107,
+        "negative_class": 15834,
+        "class_ratio": 7.514950166112957,
+        "num_features": 10,
+        "input_file": "DARUSDT.csv"
+      },
+      {
+        "total_examples": 15308,
+        "positive_class": 1963,
+        "negative_class": 13345,
+        "class_ratio": 6.798267957208354,
+        "num_features": 10,
+        "input_file": "HOOKUSDT.csv"
+      },
+      {
+        "total_examples": 27744,
+        "positive_class": 3491,
+        "negative_class": 24253,
+        "class_ratio": 6.947293039243769,
+        "num_features": 10,
+        "input_file": "AUDIOUSDT.csv"
+      },
+      {
+        "total_examples": 12225,
+        "positive_class": 1619,
+        "negative_class": 10606,
+        "class_ratio": 6.550957381099444,
+        "num_features": 10,
+        "input_file": "PENDLEUSDT.csv"
+      },
+      {
+        "total_examples": 15346,
+        "positive_class": 2016,
+        "negative_class": 13330,
+        "class_ratio": 6.612103174603175,
+        "num_features": 10,
+        "input_file": "MAGICUSDT.csv"
+      },
+      {
+        "total_examples": 23014,
+        "positive_class": 2883,
+        "negative_class": 20131,
+        "class_ratio": 6.982656954561221,
+        "num_features": 10,
+        "input_file": "C98USDT.csv"
+      },
+      {
+        "total_examples": 9074,
+        "positive_class": 1237,
+        "negative_class": 7837,
+        "class_ratio": 6.335489086499596,
+        "num_features": 10,
+        "input_file": "JUPUSDT.csv"
+      },
+      {
+        "total_examples": 22908,
+        "positive_class": 2346,
+        "negative_class": 20562,
+        "class_ratio": 8.764705882352942,
+        "num_features": 10,
+        "input_file": "RADUSDT.csv"
+      }
+    ],
+    "multi_timeframe": [
+      {
+        "total_examples": 33854,
+        "positive_class": 4408,
+        "negative_class": 29446,
+        "class_ratio": 6.680127041742287,
+        "num_features": 9,
+        "input_file": "NKNUSDT.csv"
+      },
+      {
+        "total_examples": 13457,
+        "positive_class": 1682,
+        "negative_class": 11775,
+        "class_ratio": 7.000594530321046,
+        "num_features": 9,
+        "input_file": "FLOKIUSDT.csv"
+      },
+      {
+        "total_examples": 13879,
+        "positive_class": 1469,
+        "negative_class": 12410,
+        "class_ratio": 8.447923757658272,
+        "num_features": 9,
+        "input_file": "ARBUSDT.csv"
+      },
+      {
+        "total_examples": 4537,
+        "positive_class": 589,
+        "negative_class": 3948,
+        "class_ratio": 6.702886247877759,
+        "num_features": 9,
+        "input_file": "ORCAUSDT.csv"
+      },
+      {
+        "total_examples": 7803,
+        "positive_class": 946,
+        "negative_class": 6857,
+        "class_ratio": 7.248414376321353,
+        "num_features": 9,
+        "input_file": "AGIXUSDT.csv"
+      },
+      {
+        "total_examples": 30656,
+        "positive_class": 3785,
+        "negative_class": 26871,
+        "class_ratio": 7.099339498018494,
+        "num_features": 9,
+        "input_file": "DATAUSDT.csv"
+      },
+      {
+        "total_examples": 19738,
+        "positive_class": 2282,
+        "negative_class": 17456,
+        "class_ratio": 7.64943032427695,
+        "num_features": 9,
+        "input_file": "GMTUSDT.csv"
+      },
+      {
+        "total_examples": 17929,
+        "positive_class": 2105,
+        "negative_class": 15824,
+        "class_ratio": 7.517339667458432,
+        "num_features": 9,
+        "input_file": "DARUSDT.csv"
+      },
+      {
+        "total_examples": 15297,
+        "positive_class": 1959,
+        "negative_class": 13338,
+        "class_ratio": 6.808575803981623,
+        "num_features": 9,
+        "input_file": "HOOKUSDT.csv"
+      },
+      {
+        "total_examples": 27733,
+        "positive_class": 3489,
+        "negative_class": 24244,
+        "class_ratio": 6.948695901404414,
+        "num_features": 9,
+        "input_file": "AUDIOUSDT.csv"
+      },
+      {
+        "total_examples": 12212,
+        "positive_class": 1616,
+        "negative_class": 10596,
+        "class_ratio": 6.556930693069307,
+        "num_features": 9,
+        "input_file": "PENDLEUSDT.csv"
+      },
+      {
+        "total_examples": 15332,
+        "positive_class": 2016,
+        "negative_class": 13316,
+        "class_ratio": 6.60515873015873,
+        "num_features": 9,
+        "input_file": "MAGICUSDT.csv"
+      },
+      {
+        "total_examples": 23007,
+        "positive_class": 2881,
+        "negative_class": 20126,
+        "class_ratio": 6.9857688302672685,
+        "num_features": 9,
+        "input_file": "C98USDT.csv"
+      },
+      {
+        "total_examples": 9066,
+        "positive_class": 1234,
+        "negative_class": 7832,
+        "class_ratio": 6.346839546191248,
+        "num_features": 9,
+        "input_file": "JUPUSDT.csv"
+      },
+      {
+        "total_examples": 22897,
+        "positive_class": 2343,
+        "negative_class": 20554,
+        "class_ratio": 8.77251387110542,
+        "num_features": 9,
+        "input_file": "RADUSDT.csv"
+      }
+    ],
+    "price_relative": [
+      {
+        "total_examples": 33862,
+        "positive_class": 4410,
+        "negative_class": 29452,
+        "class_ratio": 6.678458049886621,
+        "num_features": 11,
+        "input_file": "NKNUSDT.csv"
+      },
+      {
+        "total_examples": 13464,
+        "positive_class": 1685,
+        "negative_class": 11779,
+        "class_ratio": 6.990504451038576,
+        "num_features": 11,
+        "input_file": "FLOKIUSDT.csv"
+      },
+      {
+        "total_examples": 13888,
+        "positive_class": 1470,
+        "negative_class": 12418,
+        "class_ratio": 8.447619047619048,
+        "num_features": 11,
+        "input_file": "ARBUSDT.csv"
+      },
+      {
+        "total_examples": 4558,
+        "positive_class": 589,
+        "negative_class": 3969,
+        "class_ratio": 6.738539898132428,
+        "num_features": 11,
+        "input_file": "ORCAUSDT.csv"
+      },
+      {
+        "total_examples": 7822,
+        "positive_class": 946,
+        "negative_class": 6876,
+        "class_ratio": 7.268498942917548,
+        "num_features": 11,
+        "input_file": "AGIXUSDT.csv"
+      },
+      {
+        "total_examples": 30673,
+        "positive_class": 3787,
+        "negative_class": 26886,
+        "class_ratio": 7.099551095854238,
+        "num_features": 11,
+        "input_file": "DATAUSDT.csv"
+      },
+      {
+        "total_examples": 19751,
+        "positive_class": 2286,
+        "negative_class": 17465,
+        "class_ratio": 7.639982502187227,
+        "num_features": 11,
+        "input_file": "GMTUSDT.csv"
+      },
+      {
+        "total_examples": 17941,
+        "positive_class": 2107,
+        "negative_class": 15834,
+        "class_ratio": 7.514950166112957,
+        "num_features": 11,
+        "input_file": "DARUSDT.csv"
+      },
+      {
+        "total_examples": 15308,
+        "positive_class": 1963,
+        "negative_class": 13345,
+        "class_ratio": 6.798267957208354,
+        "num_features": 11,
+        "input_file": "HOOKUSDT.csv"
+      },
+      {
+        "total_examples": 27744,
+        "positive_class": 3491,
+        "negative_class": 24253,
+        "class_ratio": 6.947293039243769,
+        "num_features": 11,
+        "input_file": "AUDIOUSDT.csv"
+      },
+      {
+        "total_examples": 12225,
+        "positive_class": 1619,
+        "negative_class": 10606,
+        "class_ratio": 6.550957381099444,
+        "num_features": 11,
+        "input_file": "PENDLEUSDT.csv"
+      },
+      {
+        "total_examples": 15346,
+        "positive_class": 2016,
+        "negative_class": 13330,
+        "class_ratio": 6.612103174603175,
+        "num_features": 11,
+        "input_file": "MAGICUSDT.csv"
+      },
+      {
+        "total_examples": 23014,
+        "positive_class": 2883,
+        "negative_class": 20131,
+        "class_ratio": 6.982656954561221,
+        "num_features": 11,
+        "input_file": "C98USDT.csv"
+      },
+      {
+        "total_examples": 9074,
+        "positive_class": 1237,
+        "negative_class": 7837,
+        "class_ratio": 6.335489086499596,
+        "num_features": 11,
+        "input_file": "JUPUSDT.csv"
+      },
+      {
+        "total_examples": 22908,
+        "positive_class": 2346,
+        "negative_class": 20562,
+        "class_ratio": 8.764705882352942,
+        "num_features": 11,
+        "input_file": "RADUSDT.csv"
+      }
+    ],
+    "combined_best": [
+      {
+        "total_examples": 33854,
+        "positive_class": 4408,
+        "negative_class": 29446,
+        "class_ratio": 6.680127041742287,
+        "num_features": 11,
+        "input_file": "NKNUSDT.csv"
+      },
+      {
+        "total_examples": 13457,
+        "positive_class": 1682,
+        "negative_class": 11775,
+        "class_ratio": 7.000594530321046,
+        "num_features": 11,
+        "input_file": "FLOKIUSDT.csv"
+      },
+      {
+        "total_examples": 13879,
+        "positive_class": 1469,
+        "negative_class": 12410,
+        "class_ratio": 8.447923757658272,
+        "num_features": 11,
+        "input_file": "ARBUSDT.csv"
+      },
+      {
+        "total_examples": 4537,
+        "positive_class": 589,
+        "negative_class": 3948,
+        "class_ratio": 6.702886247877759,
+        "num_features": 11,
+        "input_file": "ORCAUSDT.csv"
+      },
+      {
+        "total_examples": 7803,
+        "positive_class": 946,
+        "negative_class": 6857,
+        "class_ratio": 7.248414376321353,
+        "num_features": 11,
+        "input_file": "AGIXUSDT.csv"
+      },
+      {
+        "total_examples": 30656,
+        "positive_class": 3785,
+        "negative_class": 26871,
+        "class_ratio": 7.099339498018494,
+        "num_features": 11,
+        "input_file": "DATAUSDT.csv"
+      },
+      {
+        "total_examples": 19738,
+        "positive_class": 2282,
+        "negative_class": 17456,
+        "class_ratio": 7.64943032427695,
+        "num_features": 11,
+        "input_file": "GMTUSDT.csv"
+      },
+      {
+        "total_examples": 17929,
+        "positive_class": 2105,
+        "negative_class": 15824,
+        "class_ratio": 7.517339667458432,
+        "num_features": 11,
+        "input_file": "DARUSDT.csv"
+      },
+      {
+        "total_examples": 15297,
+        "positive_class": 1959,
+        "negative_class": 13338,
+        "class_ratio": 6.808575803981623,
+        "num_features": 11,
+        "input_file": "HOOKUSDT.csv"
+      },
+      {
+        "total_examples": 27733,
+        "positive_class": 3489,
+        "negative_class": 24244,
+        "class_ratio": 6.948695901404414,
+        "num_features": 11,
+        "input_file": "AUDIOUSDT.csv"
+      },
+      {
+        "total_examples": 12212,
+        "positive_class": 1616,
+        "negative_class": 10596,
+        "class_ratio": 6.556930693069307,
+        "num_features": 11,
+        "input_file": "PENDLEUSDT.csv"
+      },
+      {
+        "total_examples": 15332,
+        "positive_class": 2016,
+        "negative_class": 13316,
+        "class_ratio": 6.60515873015873,
+        "num_features": 11,
+        "input_file": "MAGICUSDT.csv"
+      },
+      {
+        "total_examples": 23007,
+        "positive_class": 2881,
+        "negative_class": 20126,
+        "class_ratio": 6.9857688302672685,
+        "num_features": 11,
+        "input_file": "C98USDT.csv"
+      },
+      {
+        "total_examples": 9066,
+        "positive_class": 1234,
+        "negative_class": 7832,
+        "class_ratio": 6.346839546191248,
+        "num_features": 11,
+        "input_file": "JUPUSDT.csv"
+      },
+      {
+        "total_examples": 22897,
+        "positive_class": 2343,
+        "negative_class": 20554,
+        "class_ratio": 8.77251387110542,
+        "num_features": 11,
+        "input_file": "RADUSDT.csv"
+      }
+    ]
+  }
+}

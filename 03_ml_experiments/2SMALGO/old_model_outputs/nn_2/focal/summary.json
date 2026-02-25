@@ -1,0 +1,13 @@
+{
+  "name": "focal",
+  "best_epoch": 23,
+  "best_val_loss": 0.035159385471342126,
+  "best_val_f1": 0.24255655923333955,
+  "best_thresh": 0.24288596212863922,
+  "val_auc": 0.5926215661543037,
+  "val_auprc": 0.1719890964336243,
+  "precision_at_best": 0.1562917633818668,
+  "recall_at_best": 0.5413570471433792,
+  "train_time_sec": 150.82308912277222,
+  "history_csv": "model_output/nn_report/focal/training_history.csv"
+}

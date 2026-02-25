@@ -1,0 +1,636 @@
+//@version=5
+indicator(title="Dual Range Filter Pro V5.0 - Jupiter Optimized", shorttitle="DRF V5.0", overlay=true, max_labels_count=500, max_lines_count=500)
+
+//================================================================================================
+// CORE FUNCTIONS
+//================================================================================================
+Cond_EMA(x, cond, n) =>
+    var float[] val = array.new_float()
+    var float[] ema_val = array.new_float(1, na)
+    if cond
+        array.push(val, x)
+        if array.size(val) > 1
+            array.remove(val, 0)
+        if na(array.get(ema_val, 0))
+            array.fill(ema_val, array.get(val, math.max(0, array.size(val) - 1)))
+        array.set(ema_val, 0, (array.get(val, 0) - array.get(ema_val, 0)) * (2 / (n + 1)) + array.get(ema_val, 0))
+    array.get(ema_val, 0)
+
+Cond_SMA(x, cond, n) =>
+    var float[] vals = array.new_float()
+    if cond
+        array.push(vals, x)
+        if array.size(vals) > n
+            array.remove(vals, 0)
+    array.avg(vals)
+
+Stdev(x, n) =>
+    math.sqrt(Cond_SMA(math.pow(x, 2), true, n) - math.pow(Cond_SMA(x, true, n), 2))
+
+rng_size(x, scale, qty, n) =>
+    ATR = Cond_EMA(ta.tr, true, n)  // ✅ v5: ta.tr()
+    AC = Cond_EMA(math.abs(x - x[1]), true, n)
+    SD = Stdev(x, n)
+    switch scale
+        "Pips" => qty * 0.0001
+        "Points" => qty * syminfo.pointvalue
+        "% of Price" => close * qty / 100
+        "ATR" => qty * ATR
+        "Average Change" => qty * AC
+        "Standard Deviation" => qty * SD
+        "Ticks" => qty * syminfo.mintick
+        => qty  // "Absolute"
+
+rng_filt(h, l, rng_, n, type, smooth, sn, av_rf, av_n) =>
+    rng_smooth = Cond_EMA(rng_, true, sn)
+    r = smooth ? rng_smooth : rng_
+    var float[] rfilt = array.new_float(2, (h + l) / 2)
+    array.set(rfilt, 1, array.get(rfilt, 0))
+    if type == "Type 1"
+        if h - r > array.get(rfilt, 1)
+            array.set(rfilt, 0, h - r)
+        if l + r < array.get(rfilt, 1)
+            array.set(rfilt, 0, l + r)
+    else if type == "Type 2"
+        if h >= array.get(rfilt, 1) + r
+            offset = math.floor(math.abs(h - array.get(rfilt, 1)) / r)
+            array.set(rfilt, 0, array.get(rfilt, 1) + offset * r)
+        if l <= array.get(rfilt, 1) - r
+            offset = math.floor(math.abs(l - array.get(rfilt, 1)) / r)
+            array.set(rfilt, 0, array.get(rfilt, 1) - offset * r)
+    rng_filt1 = array.get(rfilt, 0)
+    rng_filt2 = Cond_EMA(rng_filt1, rng_filt1 != rng_filt1[1], av_n)
+    av_rf ? rng_filt2 : rng_filt1
+
+// V5: ADX (cleaner)
+calc_adx(len) =>
+    up = ta.change(high)
+    down = -ta.change(low)
+    plusDM = na(up) ? na : up > down and up > 0 ? up : 0
+    minusDM = na(down) ? na : down > up and down > 0 ? down : 0
+    trur = ta.rma(ta.tr, len)
+    plus = 100 * ta.rma(plusDM, len) / trur
+    minus = 100 * ta.rma(minusDM, len) / trur
+    sum = plus + minus
+    100 * ta.rma(math.abs(plus - minus) / (sum == 0 ? 1 : sum), len)
+
+//================================================================================================
+// INPUTS — grouped for clarity
+//================================================================================================
+preset = input.string("Jupiter (Explosive)", options=["Default (PEPE 5m)", "Jupiter (Explosive)", "Aggressive Scalping", "Conservative Swing", "High Volatility", "Low Volatility Ranging", "Trend Following", "Mean Reversion", "Breakout Hunter", "Night Mode (Low Volume)", "Day Mode (High Volume)", "Custom"], title="Strategy Preset", group="PRESET")
+
+// — V2.2 Enhancements
+enable_price_distance_filter = input.bool(true, "📍 Min Price Distance Between Signals", group="V2.2 Enhancements")
+min_price_distance_pct = input.float(1.5, "Min Distance %", minval=0, step=0.1, group="V2.2 Enhancements")
+enable_same_direction_autoclose = input.bool(true, "🔄 Auto-Close Losing Trade on Same-Dir Signal", group="V2.2 Enhancements")
+
+// — V2.3 Quality Filter
+enable_quality_filter = input.bool(true, "🎯 Advanced Quality Filter", group="V2.3 Quality Filter")
+min_quality_score = input.int(60, "Min Quality Score (0-100)", minval=0, maxval=100, group="V2.3 Quality Filter")
+quality_lookback = input.int(20, "Lookback Period", minval=10, maxval=50, group="V2.3 Quality Filter")
+show_quality_score = input.bool(false, "Show Quality Score on Labels", group="V2.3 Quality Filter")
+
+// — V5.0 Parabolic & Regime
+enable_parabolic_detection = input.bool(true, "🚀 Parabolic Acceleration Detector", group="V5.0 Parabolic")
+parabolic_momentum_threshold = input.float(5.0, "Momentum Threshold %", minval=2, step=0.5, group="V5.0 Parabolic")
+parabolic_volume_mult = input.float(2.5, "Volume Multiplier", minval=1.5, step=0.1, group="V5.0 Parabolic")
+parabolic_min_profit = input.float(25.0, "Min Profit % for Parabolic Mode", minval=10, step=5, group="V5.0 Parabolic")
+
+use_regime_adaptive_exits = input.bool(true, "📊 Regime-Adaptive Exit Logic", group="V5.0 Regime")
+adx_period = input.int(14, "ADX Period", minval=5, group="V5.0 Regime")
+ranging_max_profit = input.float(12.0, "Ranging: Max Profit %", minval=5, step=0.5, group="V5.0 Regime")
+ranging_peak_dd = input.float(30.0, "Ranging: Peak Drawdown %", minval=10, maxval=50, step=5, group="V5.0 Regime")
+explosive_min_profit = input.float(25.0, "Explosive: Min Profit Target %", minval=15, step=5, group="V5.0 Regime")
+explosive_peak_dd = input.float(60.0, "Explosive: Peak Drawdown %", minval=40, maxval=80, step=5, group="V5.0 Regime")
+
+// — V2.0
+enable_profit_potential = input.bool(true, "💰 Profit Potential Pre-Filter", group="V2.0 Enhancements")
+min_profit_potential = input.float(1.8, "Min Profit Potential %", minval=0.5, step=0.1, group="V2.0 Enhancements")
+enable_signal_sizing = input.bool(true, "📊 Signal-Based Position Sizing", group="V2.0 Enhancements")
+
+// — Explosive Extension
+enable_explosive_extension = input.bool(true, "🚀 Enable Explosive Extension Mode", group="Explosive Extension")
+explosive_vol_mult = input.float(2.0, "Volume Multiplier", minval=1.5, step=0.1, group="Explosive Extension")
+explosive_accel = input.float(3.0, "Acceleration %", minval=2, step=0.5, group="Explosive Extension")
+explosive_extension_bars = input.int(5, "Extension Pause (bars)", minval=3, group="Explosive Extension")
+
+// — Range Filter 1
+rf1_size = switch preset
+    "Default (PEPE 5m)" => 4.0
+    "Jupiter (Explosive)" => 3.5
+    "Aggressive Scalping" => 2.5
+    "Conservative Swing" => 5.0
+    "High Volatility" => 3.5
+    "Low Volatility Ranging" => 2.0
+    "Trend Following" => 4.5
+    "Mean Reversion" => 3.0
+    "Breakout Hunter" => 3.8
+    "Night Mode (Low Volume)" => 2.8
+    "Day Mode (High Volume)" => 4.2
+    => 4.0
+
+rf1_period = switch preset
+    "Default (PEPE 5m)" => 30
+    "Jupiter (Explosive)" => 25
+    "Aggressive Scalping" => 20
+    "Conservative Swing" => 40
+    "High Volatility" => 25
+    "Low Volatility Ranging" => 18
+    "Trend Following" => 35
+    "Mean Reversion" => 22
+    "Breakout Hunter" => 28
+    "Night Mode (Low Volume)" => 24
+    "Day Mode (High Volume)" => 32
+    => 30
+
+rf1_smooth = switch preset
+    "Default (PEPE 5m)" => 100
+    "Jupiter (Explosive)" => 80
+    "Aggressive Scalping" => 60
+    "Conservative Swing" => 120
+    "High Volatility" => 80
+    "Low Volatility Ranging" => 50
+    "Trend Following" => 110
+    "Mean Reversion" => 70
+    "Breakout Hunter" => 90
+    "Night Mode (Low Volume)" => 85
+    "Day Mode (High Volume)" => 95
+    => 100
+
+f_type1 = input.string("Type 1", options=["Type 1", "Type 2"], title="RF1 - Filter Type", group="Range Filter 1")
+mov_src1 = input.string("Close", options=["Wicks", "Close"], title="RF1 - Movement Source", group="Range Filter 1")
+rng_qty1 = input.float(4.0, "RF1 - Range Size", minval=1e-7, group="Range Filter 1")
+rng_scale1 = input.string("Average Change", options=["Points", "Pips", "Ticks", "% of Price", "ATR", "Average Change", "Standard Deviation", "Absolute"], title="RF1 - Range Scale", group="Range Filter 1")
+rng_per1 = input.int(30, "RF1 - Range Period", minval=1, group="Range Filter 1")
+smooth_range1 = input.bool(true, "RF1 - Smooth Range", group="Range Filter 1")
+smooth_per1 = input.int(100, "RF1 - Smoothing Period", minval=1, group="Range Filter 1")
+av_vals1 = input.bool(false, "RF1 - Avg Filter Changes", group="Range Filter 1")
+av_samples1 = input.int(2, "RF1 - Changes to Avg", minval=1, group="Range Filter 1")
+
+rng_qty1_final = preset == "Custom" ? rng_qty1 : rf1_size
+rng_per1_final = preset == "Custom" ? rng_per1 : rf1_period
+smooth_per1_final = preset == "Custom" ? smooth_per1 : rf1_smooth
+
+// — Range Filter 2 (same pattern)
+rf2_size = switch preset
+    "Default (PEPE 5m)" => 5.0
+    "Jupiter (Explosive)" => 4.5
+    "Aggressive Scalping" => 3.5
+    "Conservative Swing" => 6.5
+    "High Volatility" => 4.5
+    "Low Volatility Ranging" => 3.0
+    "Trend Following" => 5.8
+    "Mean Reversion" => 4.2
+    "Breakout Hunter" => 5.2
+    "Night Mode (Low Volume)" => 4.0
+    "Day Mode (High Volume)" => 5.5
+    => 5.0
+
+rf2_period = switch preset
+    "Default (PEPE 5m)" => 20
+    "Jupiter (Explosive)" => 18
+    "Aggressive Scalping" => 15
+    "Conservative Swing" => 28
+    "High Volatility" => 18
+    "Low Volatility Ranging" => 12
+    "Trend Following" => 25
+    "Mean Reversion" => 16
+    "Breakout Hunter" => 22
+    "Night Mode (Low Volume)" => 17
+    "Day Mode (High Volume)" => 23
+    => 20
+
+rf2_smooth = switch preset
+    "Default (PEPE 5m)" => 40
+    "Jupiter (Explosive)" => 35
+    "Aggressive Scalping" => 25
+    "Conservative Swing" => 55
+    "High Volatility" => 35
+    "Low Volatility Ranging" => 20
+    "Trend Following" => 48
+    "Mean Reversion" => 30
+    "Breakout Hunter" => 42
+    "Night Mode (Low Volume)" => 32
+    "Day Mode (High Volume)" => 45
+    => 40
+
+f_type2 = input.string("Type 1", options=["Type 1", "Type 2"], title="RF2 - Filter Type", group="Range Filter 2")
+mov_src2 = input.string("Close", options=["Wicks", "Close"], title="RF2 - Movement Source", group="Range Filter 2")
+rng_qty2 = input.float(5.0, "RF2 - Range Size", minval=1e-7, group="Range Filter 2")
+rng_scale2 = input.string("Average Change", options=["Points", "Pips", "Ticks", "% of Price", "ATR", "Average Change", "Standard Deviation", "Absolute"], title="RF2 - Range Scale", group="Range Filter 2")
+rng_per2 = input.int(20, "RF2 - Range Period", minval=1, group="Range Filter 2")
+smooth_range2 = input.bool(true, "RF2 - Smooth Range", group="Range Filter 2")
+smooth_per2 = input.int(40, "RF2 - Smoothing Period", minval=1, group="Range Filter 2")
+av_vals2 = input.bool(false, "RF2 - Avg Filter Changes", group="Range Filter 2")
+av_samples2 = input.int(2, "RF2 - Changes to Avg", minval=1, group="Range Filter 2")
+
+rng_qty2_final = preset == "Custom" ? rng_qty2 : rf2_size
+rng_per2_final = preset == "Custom" ? rng_per2 : rf2_period
+smooth_per2_final = preset == "Custom" ? smooth_per2 : rf2_smooth
+
+// — Exit & Signal Settings
+use_cooldown = input.bool(true, "Signal Cooldown Period", group="Signal Filters")
+cooldown_bars = input.int(20, "Cooldown Bars", minval=1, group="Signal Filters")
+exit_mode = input.string("Signal + Peak Protection", options=["Signal Only", "Signal + Peak Protection"], title="Exit Mode", group="Exit")
+use_profit_cap = input.bool(true, "Enable Max Profit Cap", group="Exit")
+max_profit_cap = input.float(15.0, "Max Profit %", minval=1, step=0.5, group="Exit")
+use_loss_cap = input.bool(true, "Enable Max Loss Cap", group="Exit")
+max_loss_cap = input.float(3.0, "Max Loss %", minval=0.5, step=0.1, group="Exit")
+show_exit_labels = input.bool(true, "Show Exit Labels", group="Exit")
+min_profit_threshold = input.float(0.65, "Min Profit Threshold % (Fees)", minval=0, step=0.05, group="Exit")
+peak_profit_trigger_input = input.float(3.0, "Min Profit % to Activate Peak Protection", minval=1, step=0.5, group="Exit")
+peak_drawdown_pct_input = input.float(35.0, "Drawdown from Peak %", minval=10, maxval=60, step=5, group="Exit")
+peak_lookback_bars = input.int(3, "Peak Confirmation Bars", minval=1, maxval=10, group="Exit")
+peak_profit_trigger = preset == "Jupiter (Explosive)" ? peak_profit_trigger_input * 1.5 : peak_profit_trigger_input
+
+min_signal_rating = input.int(4, "Min Signal Rating (1-5)", minval=1, maxval=5, group="Signal Rating")
+show_all_signals = input.bool(false, "Show All Signals", group="Signal Rating")
+use_alternate_signals = input.bool(true, "Require Alternating Long/Short", group="Signal Rating")
+
+//================================================================================================
+// PERFORMANCE TRACKING
+//================================================================================================
+var int total_trades = 0
+var int winning_trades = 0
+var int losing_trades = 0
+var float total_pnl_pct = 0.0
+var float largest_win = 0.0
+var float largest_loss = 0.0
+var int total_bars_in_trade = 0
+var int explosive_extensions = 0
+var int filtered_by_potential = 0
+var int price_distance_filtered = 0
+var int same_direction_autocloses = 0
+var int cooldown_filtered = 0
+var int quality_filtered = 0
+var float total_quality_score = 0.0
+var int quality_signal_count = 0
+var int parabolic_mode_count = 0
+var int regime_ranging_exits = 0
+var int regime_explosive_exits = 0
+var float largest_parabolic_win = 0.0
+
+//================================================================================================
+// CALCULATIONS
+//================================================================================================
+h_val1 = mov_src1 == "Wicks" ? high : close
+l_val1 = mov_src1 == "Wicks" ? low : close
+filt1 = rng_filt(h_val1, l_val1, rng_size((h_val1 + l_val1)/2, rng_scale1, rng_qty1_final, rng_per1_final), rng_per1_final, f_type1, smooth_range1, smooth_per1_final, av_vals1, av_samples1)
+
+h_val2 = mov_src2 == "Wicks" ? high : close
+l_val2 = mov_src2 == "Wicks" ? low : close
+filt2 = rng_filt(h_val2, l_val2, rng_size((h_val2 + l_val2)/2, rng_scale2, rng_qty2_final, rng_per2_final), rng_per2_final, f_type2, smooth_range2, smooth_per2_final, av_vals2, av_samples2)
+
+atr_val = Cond_EMA(ta.tr, true, 14)
+vol_ma = ta.sma(volume, 20)
+trend_ema = ta.ema(close, 50)
+
+// PROFIT POTENTIAL
+profit_potential_score = 0.0
+estimated_profit_potential = 0.0
+if enable_profit_potential
+    trend_strength = math.abs(close - trend_ema) / trend_ema * 100
+    vol_surge = (volume / vol_ma - 1) * 100
+    distance = math.abs(filt1 - filt2)
+    filter_separation = distance / close * 100
+    price_roc = math.abs(close - close[3]) / close[3] * 100
+
+    profit_potential_score += math.min(30.0, trend_strength * 10)
+    profit_potential_score += math.min(25.0, vol_surge * 5)
+    profit_potential_score += math.min(25.0, filter_separation * 30)
+    profit_potential_score += math.min(20.0, price_roc * 4)
+    estimated_profit_potential := profit_potential_score / 20
+
+// SIGNAL LOGIC
+bullish_cross = ta.crossover(filt1, filt2)
+bearish_cross = ta.crossunder(filt1, filt2)
+base_long_entry = bullish_cross
+base_short_entry = bearish_cross
+
+if enable_profit_potential and (base_long_entry or base_short_entry)
+    if estimated_profit_potential < min_profit_potential
+        base_long_entry := false
+        base_short_entry := false
+        filtered_by_potential += 1
+
+// V2.3 QUALITY FILTER
+var float current_quality_score = 0.0
+if enable_quality_filter and (base_long_entry or base_short_entry)
+    quality_score = 0.0
+    recent_high = ta.highest(high, quality_lookback)
+    recent_low = ta.lowest(low, quality_lookback)
+    price_range = recent_high - recent_low
+    if price_range > 0
+        range_position = (close - recent_low) / price_range
+        quality_score += base_long_entry and range_position < 0.2 ? 30.0 :
+                        base_long_entry and range_position < 0.35 ? 15.0 :
+                        base_short_entry and range_position > 0.8 ? 30.0 :
+                        base_short_entry and range_position > 0.65 ? 15.0 : 0.0
+
+    fast_momentum = math.abs(close - close[3]) / close[3] * 100
+    slow_momentum = math.abs(close - close[10]) / close[10] * 100
+    if slow_momentum > 0
+        ratio = fast_momentum / slow_momentum
+        quality_score += ratio > 2.0 ? 30.0 :
+                        ratio > 1.5 ? 20.0 :
+                        ratio > 1.2 ? 10.0 : 0.0
+
+    local_vol_ma = ta.sma(volume, quality_lookback)
+    if local_vol_ma > 0
+        vol_ratio = volume / local_vol_ma
+        quality_score += vol_ratio > 1.8 ? 25.0 :
+                        vol_ratio > 1.4 ? 15.0 :
+                        vol_ratio > 1.1 ? 8.0 : 0.0
+
+    current_sep = math.abs(filt1 - filt2) / close * 100
+    avg_sep = ta.sma(current_sep, quality_lookback)
+    if avg_sep > 0
+        sep_ratio = current_sep / avg_sep
+        quality_score += sep_ratio > 1.5 ? 15.0 :
+                        sep_ratio > 1.2 ? 10.0 :
+                        sep_ratio > 1.0 ? 5.0 : 0.0
+
+    current_quality_score := quality_score
+    if quality_score < min_quality_score
+        base_long_entry := false
+        base_short_entry := false
+        quality_filtered += 1
+    else
+        total_quality_score += quality_score
+        quality_signal_count += 1
+
+// ✅ FIXED SCOPE: Declare all vars BEFORE conditional
+var float vol_score = na
+var float mom_score = na
+var float sep_score = na
+var float vel_score = na
+var float trend_score = 10.0
+var float vol_strength_score = 5.0
+var float chop_score = 2.5
+var float signal_score = na
+
+var int total_signals = 0
+var int five_star = 0
+var int four_star = 0
+var int three_star = 0
+var int two_star = 0
+var int one_star = 0
+
+distance = math.abs(filt1 - filt2)
+price_roc = math.abs(close - close[3]) / close[3] * 100
+
+if base_long_entry or base_short_entry
+    vol_score := math.min(15.0, (atr_val / close * 100) * 30)
+    mom_score := math.min(15.0, price_roc * 3)
+    sep_score := math.min(15.0, (distance / close * 100) * 40)
+    vel_score := math.min(10.0, price_roc * 2)
+
+    signal_score := vol_score + mom_score + sep_score + vel_score + trend_score + vol_strength_score + chop_score
+    total_signals += 1
+
+signal_rating = 
+  signal_score >= 80 ? 5 :
+  signal_score >= 62 ? 4 :
+  signal_score >= 43 ? 3 :
+  signal_score >= 27 ? 2 : 1
+
+if base_long_entry or base_short_entry
+    switch signal_rating
+        5 => five_star += 1
+        4 => four_star += 1
+        3 => three_star += 1
+        2 => two_star += 1
+        => one_star += 1
+
+long_entry = base_long_entry and (show_all_signals or signal_rating >= min_signal_rating)
+short_entry = base_short_entry and (show_all_signals or signal_rating >= min_signal_rating)
+
+// COOLDOWN
+var int bars_since_last_signal = 999
+if use_cooldown and bars_since_last_signal < cooldown_bars
+    if long_entry or short_entry
+        cooldown_filtered += 1
+    long_entry := false
+    short_entry := false
+
+// PRICE DISTANCE FILTER
+var float last_entry_price = na
+if enable_price_distance_filter and (long_entry or short_entry) and not na(last_entry_price)
+    pnl_distance_pct = math.abs(open - last_entry_price) / last_entry_price * 100
+    if pnl_distance_pct < min_price_distance_pct
+        price_distance_filtered += 1
+        long_entry := false
+        short_entry := false
+
+// ALTERNATING SIGNALS
+var int last_signal_type = 0
+if use_alternate_signals
+    long_entry := long_entry and last_signal_type != 1
+    short_entry := short_entry and last_signal_type != -1
+
+// UPDATE STATE
+if long_entry or short_entry
+    bars_since_last_signal := 0
+    last_entry_price := open
+    last_signal_type := long_entry ? 1 : -1
+else
+    bars_since_last_signal += 1
+
+//================================================================================================
+// POSITION & EXIT LOGIC
+//================================================================================================
+var float active_entry = na
+var bool is_long = na
+var bool trade_active = false
+var int entry_bar = 0
+var float max_profit_pct = 0.0
+var float profit_peak = 0.0
+var int bars_since_peak = 0
+var bool peak_protection_active = false
+var int entry_signal_rating_val = 0
+var float position_size_multiplier = 1.0
+var bool should_exit = false
+var float exit_price = na
+var string exit_reason = ""
+var int explosive_extension_pause = 0
+
+if trade_active
+    bars_in_trade = bar_index - entry_bar
+    should_exit := false
+    exit_price := close
+    exit_reason := ""
+    
+    current_pnl_pct = is_long ? (close - active_entry) / active_entry * 100 : (active_entry - close) / active_entry * 100
+    max_profit_pct := math.max(max_profit_pct, current_pnl_pct)
+    
+    if current_pnl_pct > profit_peak
+        profit_peak := current_pnl_pct
+        bars_since_peak := 0
+    else
+        bars_since_peak += 1
+
+    if exit_mode == "Signal + Peak Protection" and current_pnl_pct >= peak_profit_trigger and not peak_protection_active
+        peak_protection_active := true
+
+    // PARABOLIC MODE
+    var bool parabolic_mode_active = false
+    if enable_parabolic_detection and current_pnl_pct > 10.0
+        three_bar_move = math.abs(close - close[3]) / close[3] * 100
+        vol_spike = volume > (vol_ma * parabolic_volume_mult)
+        consecutive = (is_long and close > close[1] and close[1] > close[2] and close[2] > close[3]) or
+                      (not is_long and close < close[1] and close[1] < close[2] and close[2] < close[3])
+        filters_diverging = math.abs(filt1 - filt2) > math.abs(filt1[1] - filt2[1])
+        
+        is_parabolic = three_bar_move >= parabolic_momentum_threshold and vol_spike and consecutive and filters_diverging and current_pnl_pct >= parabolic_min_profit
+        if is_parabolic and not parabolic_mode_active
+            parabolic_mode_active := true
+            parabolic_mode_count += 1
+        if parabolic_mode_active and three_bar_move < (parabolic_momentum_threshold / 2)
+            parabolic_mode_active := false
+
+    // REGIME
+    var string current_regime = "TRENDING"
+    var float regime_max_profit = max_profit_cap
+    var float regime_peak_dd = peak_drawdown_pct_input
+
+    if use_regime_adaptive_exits
+        adx_value = calc_adx(adx_period)
+        if adx_value < 25
+            current_regime := "RANGING"
+            regime_max_profit := ranging_max_profit
+            regime_peak_dd := ranging_peak_dd
+        else if adx_value < 40
+            current_regime := "TRENDING"
+        else
+            current_regime := "EXPLOSIVE"
+            regime_max_profit := explosive_min_profit * 2
+            regime_peak_dd := explosive_peak_dd
+
+    if parabolic_mode_active
+        current_regime := "PARABOLIC"
+        regime_max_profit := 100.0
+        regime_peak_dd := 70.0
+
+    // Auto-close same-dir losing trade
+    if enable_same_direction_autoclose and not should_exit
+        same_dir = (is_long and long_entry) or (not is_long and short_entry)
+        if same_dir and current_pnl_pct < 0
+            should_exit := true
+            exit_price := close
+            exit_reason := "Auto-Close (Same Dir)"
+            same_direction_autocloses += 1
+
+    // Explosive extension pause
+    vol_spike_ex = volume > (vol_ma * explosive_vol_mult)
+    price_accel = math.abs(close - close[3]) / close[3] * 100
+    is_explosive_now = vol_spike_ex and price_accel >= explosive_accel
+    filters_aligned = (filt1 > filt1[2]) == (filt2 > filt2[2])
+    
+    if enable_explosive_extension and is_explosive_now and filters_aligned and current_pnl_pct > 0
+        if explosive_extension_pause == 0
+            explosive_extensions += 1
+        explosive_extension_pause := explosive_extension_bars
+    if explosive_extension_pause > 0
+        explosive_extension_pause -= 1
+
+    // EXITS
+    if not should_exit and use_profit_cap and current_pnl_pct >= regime_max_profit
+        should_exit := true
+        exit_price := close
+        exit_reason := current_regime + " Max Profit"
+        if current_regime == "RANGING"
+            regime_ranging_exits += 1
+        else if current_regime == "EXPLOSIVE" or current_regime == "PARABOLIC"
+            regime_explosive_exits += 1
+
+    if not should_exit and use_loss_cap and current_pnl_pct <= -max_loss_cap
+        should_exit := true
+        exit_price := close
+        exit_reason := "Max Loss"
+
+    if not should_exit and ((is_long and short_entry) or (not is_long and long_entry))
+        should_exit := true
+        exit_price := open
+        exit_reason := "Opposite Signal"
+
+    if exit_mode == "Signal + Peak Protection" and not should_exit and peak_protection_active and explosive_extension_pause == 0
+        drawdown = ((profit_peak - current_pnl_pct) / profit_peak) * 100
+        if drawdown >= regime_peak_dd and bars_since_peak >= peak_lookback_bars and current_pnl_pct > min_profit_threshold
+            should_exit := true
+            exit_price := close
+            tier = current_pnl_pct < 8.0 ? "Small" : current_pnl_pct < 15.0 ? "Medium" : "Large"
+            exit_reason := "Peak (" + tier + ")"
+
+    // EXECUTE EXIT
+    if should_exit
+        exec_pnl = is_long ? (exit_price - active_entry) / active_entry * 100 : (active_entry - exit_price) / active_entry * 100
+        net_pnl = exec_pnl * position_size_multiplier
+
+        if parabolic_mode_active and exec_pnl > 0
+            largest_parabolic_win := math.max(largest_parabolic_win, exec_pnl)
+
+        total_trades += 1
+        total_pnl_pct += net_pnl
+        total_bars_in_trade += bars_in_trade
+
+        if exec_pnl > 0
+            winning_trades += 1
+            largest_win := math.max(largest_win, exec_pnl)
+        else
+            losing_trades += 1
+            largest_loss := math.min(largest_loss, exec_pnl)
+
+        if show_exit_labels
+            clr = net_pnl > 0 ? color.new(#00ff88, 0) : color.new(#ff3366, 0)
+            pnl_str = str.tostring(math.round(net_pnl * 100) / 100, "#.##")
+            size_str = position_size_multiplier != 1.0 ? "\n" + str.tostring(position_size_multiplier, "#.#") + "x" : ""
+            badge = parabolic_mode_active ? " 🚀" : ""
+            txt = exit_reason + badge + "\n" + pnl_str + "%" + size_str + "\n" + str.tostring(bars_in_trade) + " bars"
+            label.new(bar_index, exit_price, txt, style=label.style_label_left, color=clr, textcolor=color.white, size=size.tiny)
+
+        trade_active := false
+        max_profit_pct := 0.0
+        profit_peak := 0.0
+        bars_since_peak := 0
+        peak_protection_active := false
+        explosive_extension_pause := 0
+        position_size_multiplier := 1.0
+        // No need to reset parabolic_mode_active — it’s var inside block
+
+// ENTRY
+if long_entry and not trade_active
+    active_entry := open
+    is_long := true
+    trade_active := true
+    entry_bar := bar_index
+    entry_signal_rating_val := signal_rating
+    position_size_multiplier := enable_signal_sizing ? 
+      (signal_rating == 5 ? 1.5 : signal_rating == 4 ? 1.2 : signal_rating == 3 ? 0.7 : 0.5) : 1.0
+
+if short_entry and not trade_active
+    active_entry := open
+    is_long := false
+    trade_active := true
+    entry_bar := bar_index
+    entry_signal_rating_val := signal_rating
+    position_size_multiplier := enable_signal_sizing ? 
+      (signal_rating == 5 ? 1.5 : signal_rating == 4 ? 1.2 : signal_rating == 3 ? 0.7 : 0.5) : 1.0
+
+//================================================================================================
+// PLOTS
+//================================================================================================
+signal_color = 
+  signal_rating == 5 ? color.new(#ffd700, 0) :
+  signal_rating == 4 ? color.new(#00ff88, 0) :
+  signal_rating == 3 ? color.new(#00d4ff, 0) :
+  signal_rating == 2 ? color.new(#ff9500, 0) :
+  color.new(#ff3366, 0)
+
+bgcolor(explosive_extension_pause > 0 ? color.new(#ff00ff, 90) : na, title="Explosive Extension")
+
+plot(filt1, "RF1", color.new(#404040, 75), 1)
+plot(filt2, "RF2", color.new(#606060, 75), 1)
+plotshape(long_entry, "Long", shape.triangleup, location.belowbar, signal_color, size.small)
+plotshape(short_entry, "Short", shape.triangledown, location.abovebar, signal_color, size.small)
+plot(trade_active ? active_entry : na, "Entry", color.new(#ffd700, 50), 1, plot.style_linebr, trackprice=true)
+plot(enable_price_distance_filter and not na(last_entry_price) ? last_entry_price : na, "Last Entry", color.new(#ff00ff, 70), 1, plot.style_circles)

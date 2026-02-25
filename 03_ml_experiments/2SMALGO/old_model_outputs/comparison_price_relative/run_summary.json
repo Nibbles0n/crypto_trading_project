@@ -1,0 +1,7 @@
+{
+  "input_features": 11,
+  "total_examples": 267578,
+  "train_examples": 200683,
+  "val_examples": 66895,
+  "class_distribution": {
+    

@@ -1,0 +1,1349 @@
+2025-08-31 10:40:17,211 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-08-31 10:40:17,212 - TradingBot - INFO - Starting Discord client...
+2025-08-31 10:40:17,212 - TradingBot - ERROR - Unexpected error: Client.run() got an unexpected keyword argument 'bot'
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 134, in main
+    client.run(DISCORD_TOKEN, bot=False, log_handler=None)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Client.run() got an unexpected keyword argument 'bot'
+2025-08-31 10:40:17,212 - TradingBot - INFO - Bot has been stopped.
+2025-08-31 10:40:28,826 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-08-31 10:40:28,826 - TradingBot - INFO - Starting Discord client...
+2025-08-31 10:40:28,826 - discord.client - INFO - logging in using static token
+2025-08-31 10:40:29,024 - TradingBot - ERROR - Unexpected error: Cannot connect to host discord.com:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)')]
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 1283, in _wrap_create_connection
+    return await self._loop.create_connection(*args, **kwargs, sock=sock)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 1187, in create_connection
+    transport, protocol = await self._create_connection_transport(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        ssl_shutdown_timeout=ssl_shutdown_timeout)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 1220, in _create_connection_transport
+    await waiter
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/sslproto.py", line 581, in _on_handshake_complete
+    raise handshake_exc
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/sslproto.py", line 563, in _do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/ssl.py", line 951, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 134, in main
+    client.run(DISCORD_TOKEN, log_handler=None)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/client.py", line 929, in run
+    asyncio.run(runner())
+    ~~~~~~~~~~~^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/client.py", line 918, in runner
+    await self.start(token, reconnect=reconnect)
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/client.py", line 846, in start
+    await self.login(token)
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/client.py", line 675, in login
+    data = await self.http.static_login(token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/http.py", line 839, in static_login
+    data = await self.request(Route('GET', '/users/@me'))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/discord/http.py", line 654, in request
+    async with self.__session.request(method, url, **kwargs) as response:
+               ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/client.py", line 1488, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/client.py", line 770, in _request
+    resp = await handler(req)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/client.py", line 725, in _connect_and_send_request
+    conn = await self._connector.connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        req, traces=traces, timeout=real_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 642, in connect
+    proto = await self._create_connection(req, traces, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 1209, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 1581, in _create_direct_connection
+    raise last_exc
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 1550, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/.venv/lib/python3.13/site-packages/aiohttp/connector.py", line 1285, in _wrap_create_connection
+    raise ClientConnectorCertificateError(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorCertificateError: Cannot connect to host discord.com:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)')]
+2025-08-31 10:40:29,031 - TradingBot - INFO - Bot has been stopped.
+2025-08-31 10:40:41,955 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-08-31 10:40:41,955 - TradingBot - INFO - Starting Discord client...
+2025-08-31 10:40:41,955 - discord.client - INFO - logging in using static token
+2025-08-31 10:40:42,128 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-08-31 10:40:42,128 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:40:37,098 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:40:37,098 - TradingBot - INFO - Starting Discord client...
+2025-09-01 10:40:37,099 - discord.client - INFO - logging in using static token
+2025-09-01 10:40:37,275 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:40:37,275 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:45:16,172 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:45:16,174 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:45:16,174 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:45:16,177 - TradingBot - ERROR - Unexpected error: Client.start() got an unexpected keyword argument 'bot'
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 221, in main_async
+    await client.start(DISCORD_TOKEN, reconnect=True)
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 27, in start
+    await super().start(token, bot=False, reconnect=reconnect)
+          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Client.start() got an unexpected keyword argument 'bot'
+2025-09-01 10:45:16,429 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:45:16,431 - TradingBot - ERROR - Fatal error: a coroutine was expected, got 1
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 247, in <module>
+    sys.exit(asyncio.run(main()))
+             ~~~~~~~~~~~^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 89, in run
+    raise ValueError("a coroutine was expected, got {!r}".format(coro))
+ValueError: a coroutine was expected, got 1
+2025-09-01 10:46:46,513 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:46:46,519 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:46:46,519 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:46:46,520 - discord.client - INFO - logging in using static token
+2025-09-01 10:46:46,749 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:46:47,000 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:46:47,001 - TradingBot - ERROR - Fatal error: a coroutine was expected, got 1
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 249, in <module>
+    sys.exit(asyncio.run(main()))
+             ~~~~~~~~~~~^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 89, in run
+    raise ValueError("a coroutine was expected, got {!r}".format(coro))
+ValueError: a coroutine was expected, got 1
+2025-09-01 10:49:02,586 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:49:02,588 - TradingBot - ERROR - Missing required environment variables: DISCORD_USER_TOKEN
+2025-09-01 10:49:02,588 - TradingBot - INFO - Please update your .env file with the following variables:
+2025-09-01 10:49:02,588 - TradingBot - INFO - DISCORD_USER_TOKEN=your_discord_user_token
+2025-09-01 10:49:02,588 - TradingBot - INFO - DISCORD_CHANNEL_IDS=channel_id1,channel_id2,...
+2025-09-01 10:49:02,588 - TradingBot - INFO - KRAKEN_API_KEY=your_kraken_api_key
+2025-09-01 10:49:02,588 - TradingBot - INFO - KRAKEN_SECRET=your_kraken_secret
+2025-09-01 10:49:43,168 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:49:43,173 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:49:43,174 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:49:43,175 - discord.client - INFO - logging in using static token
+2025-09-01 10:49:43,435 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:49:43,687 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:50:26,772 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:50:26,777 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:50:26,778 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:50:26,779 - discord.client - INFO - logging in using static token
+2025-09-01 10:50:26,967 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:50:27,219 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:50:52,636 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:50:52,642 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:50:52,642 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:50:52,643 - discord.client - INFO - logging in using static token
+2025-09-01 10:50:52,859 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:50:53,111 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:51:09,875 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:51:09,880 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:51:09,880 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:51:09,880 - TradingBot - ERROR - Unexpected error: 'HTTPClient' object has no attribute '_token'
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 237, in main_async
+    await client.start(DISCORD_TOKEN)
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/MAIN.py", line 31, in start
+    self.http._token(token, bot=False)
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'HTTPClient' object has no attribute '_token'. Did you mean: 'token'?
+2025-09-01 10:51:10,139 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:52:04,382 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:52:04,387 - TradingBot - INFO - Starting Discord client with user token...
+2025-09-01 10:52:04,387 - TradingBot - INFO - Token starts with: MTQxMDYyNj...
+2025-09-01 10:52:04,388 - discord.client - INFO - logging in using static token
+2025-09-01 10:52:04,640 - TradingBot - ERROR - Discord login failed: Improper token has been passed.
+2025-09-01 10:52:04,892 - TradingBot - INFO - Bot has been stopped.
+2025-09-01 10:56:00,603 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:56:17,281 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2025-09-01 10:56:17,286 - TradingBot - INFO - Starting Discord client...
+2025-09-01 10:56:17,286 - discord.client - INFO - logging in using static token
+2025-09-01 10:56:17,468 - TradingBot - ERROR - Failed to log in to Discord: Improper token has been passed.
+2025-09-02 20:32:57,100 - __main__ - INFO - === Starting EliteAlgo Trading Bot ===
+2025-09-02 20:32:57,101 - __main__ - INFO - Monitoring 2 channel(s)
+2025-09-02 20:32:57,486 - __main__ - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-02 20:32:57,486 - __main__ - INFO - Starting Discord bot...
+2025-09-03 21:41:31,203 - __main__ - INFO - === Starting EliteAlgo Trading Bot ===
+2025-09-03 21:41:31,204 - __main__ - INFO - Monitoring 2 channel(s)
+2025-09-03 21:41:31,719 - __main__ - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-03 21:41:31,719 - __main__ - INFO - Starting Discord bot...
+2025-09-03 21:41:31,719 - __main__ - INFO - Monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-03 21:41:31,719 - __main__ - CRITICAL - Fatal error: 'GatewayServer' object has no attribute 'DEBUG' and no __dict__ for setting new attributes
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/simple_bot.py", line 253, in <module>
+    bot.run()
+    ~~~~~~~^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/simple_bot.py", line 211, in run
+    self.bot.gateway.DEBUG = {
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'GatewayServer' object has no attribute 'DEBUG' and no __dict__ for setting new attributes
+2025-09-03 21:41:41,710 - __main__ - INFO - === Starting EliteAlgo Trading Bot ===
+2025-09-03 21:41:41,710 - __main__ - INFO - Monitoring 2 channel(s)
+2025-09-03 21:41:42,081 - __main__ - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-03 21:41:42,081 - __main__ - INFO - Starting Discord bot...
+2025-09-03 21:41:42,081 - __main__ - INFO - Monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-03 21:41:42,081 - __main__ - CRITICAL - Fatal error: 'GatewayServer' object has no attribute 'connection'
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/simple_bot.py", line 253, in <module>
+    bot.run()
+    ~~~~~~~^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/simple_bot.py", line 218, in run
+    @self.bot.gateway.connection
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'GatewayServer' object has no attribute 'connection'. Did you mean: 'connected'?
+2025-09-03 21:42:15,645 - __main__ - INFO - === Starting EliteAlgo Trading Bot ===
+2025-09-03 21:42:15,645 - __main__ - INFO - Monitoring 2 channel(s)
+2025-09-03 21:42:16,022 - __main__ - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-03 21:42:16,022 - __main__ - INFO - Starting Discord bot...
+2025-09-03 21:42:16,022 - __main__ - INFO - Monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-03 21:42:16,022 - __main__ - INFO - Connecting to Discord gateway...
+2025-09-03 21:42:16,022 - __main__ - ERROR - Error in bot execution: GatewayServer.run() got an unexpected keyword argument 'reset_interval'
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/simple_bot.py", line 232, in run
+    self.bot.gateway.run(auto_reconnect=True, reset_interval=30)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: GatewayServer.run() got an unexpected keyword argument 'reset_interval'
+2025-09-03 21:42:16,023 - __main__ - INFO - Shutting down Discord connection...
+2025-09-03 21:42:16,023 - __main__ - CRITICAL - Fatal error: 'console'
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/simple_bot.py", line 256, in <module>
+    bot.run()
+    ~~~~~~~^^
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/simple_bot.py", line 239, in run
+    self.bot.gateway.close()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discum/gateway/gateway.py", line 282, in close
+    Logger.log('[gateway] websocket closed', None, self.log) #don't worry if this message prints twice
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discum/logger.py", line 17, in log
+    if log["console"]:
+       ~~~^^^^^^^^^^^
+KeyError: 'console'
+2025-09-03 21:42:40,802 - __main__ - INFO - === Starting EliteAlgo Trading Bot ===
+2025-09-03 21:42:40,802 - __main__ - INFO - Monitoring 2 channel(s)
+2025-09-03 21:42:41,139 - __main__ - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-03 21:42:41,139 - __main__ - INFO - Starting Discord bot...
+2025-09-03 21:42:41,139 - __main__ - INFO - Monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-03 21:42:41,139 - __main__ - INFO - Connecting to Discord gateway...
+2025-09-03 21:42:41,508 - __main__ - INFO - Discord gateway connection established
+2025-09-03 21:42:41,508 - __main__ - INFO - Bot user ID: 1410626020352065709
+2025-09-03 21:42:41,508 - __main__ - ERROR - Error subscribing to channel 1397264583835783198: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 21:42:41,508 - __main__ - ERROR - Error subscribing to channel 1396816434901946479: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 21:42:41,508 - __main__ - INFO - Bot is now ready to receive messages
+2025-09-03 22:15:24,020 - __main__ - INFO - Discord gateway connection established
+2025-09-03 22:15:24,021 - __main__ - INFO - Bot user ID: 1410626020352065709
+2025-09-03 22:15:24,021 - __main__ - ERROR - Error subscribing to channel 1397264583835783198: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 22:15:24,021 - __main__ - ERROR - Error subscribing to channel 1396816434901946479: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 22:15:24,021 - __main__ - INFO - Bot is now ready to receive messages
+2025-09-03 22:17:19,683 - __main__ - INFO - Discord gateway connection established
+2025-09-03 22:17:19,684 - __main__ - INFO - Bot user ID: 1410626020352065709
+2025-09-03 22:17:19,684 - __main__ - ERROR - Error subscribing to channel 1397264583835783198: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 22:17:19,684 - __main__ - ERROR - Error subscribing to channel 1396816434901946479: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 22:17:19,684 - __main__ - INFO - Bot is now ready to receive messages
+2025-09-03 22:18:13,780 - __main__ - INFO - Discord gateway connection established
+2025-09-03 22:18:13,780 - __main__ - INFO - Bot user ID: 1410626020352065709
+2025-09-03 22:18:13,780 - __main__ - ERROR - Error subscribing to channel 1397264583835783198: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 22:18:13,780 - __main__ - ERROR - Error subscribing to channel 1396816434901946479: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 22:18:13,780 - __main__ - INFO - Bot is now ready to receive messages
+2025-09-03 22:30:25,595 - __main__ - INFO - Discord gateway connection established
+2025-09-03 22:30:25,596 - __main__ - INFO - Bot user ID: 1410626020352065709
+2025-09-03 22:30:25,596 - __main__ - ERROR - Error subscribing to channel 1397264583835783198: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 22:30:25,596 - __main__ - ERROR - Error subscribing to channel 1396816434901946479: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 22:30:25,596 - __main__ - INFO - Bot is now ready to receive messages
+2025-09-03 22:36:27,973 - __main__ - INFO - Discord gateway connection established
+2025-09-03 22:36:27,973 - __main__ - INFO - Bot user ID: 1410626020352065709
+2025-09-03 22:36:27,973 - __main__ - ERROR - Error subscribing to channel 1397264583835783198: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 22:36:27,973 - __main__ - ERROR - Error subscribing to channel 1396816434901946479: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 22:36:27,973 - __main__ - INFO - Bot is now ready to receive messages
+2025-09-03 23:01:59,336 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:01:59,337 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: THETAUSDT.P | TF: 15 | 
+🔔 Strong Sell Signal Detected : 0.7817
+🔴 Stop-Loss 01  : 0.7893
+🔴 Stop-Loss 02  : 0.7968
+🎯 Take-Profit 01: 0.7741
+🎯 Take-Profit 02: 0.7666
+🎯 Take-Profit 03: 0.759
+🎯 Take-Profit 04: 0.7515
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:01:59,337 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-03 23:01:59,337 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:01:59,339 - __main__ - INFO - Parsed signal: {
+  "symbol": "THETA/USDT",
+  "signal_type": "SELL",
+  "entry_price": "0.7817",
+  "stop_loss_1": "0.7893",
+  "stop_loss_2": "0.7968",
+  "take_profits": [
+    "0.7741",
+    "0.7666",
+    "0.759",
+    "0.7515"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:01:59.337874"
+}
+2025-09-03 23:01:59,339 - __main__ - INFO - Parsed signal: {
+  "symbol": "THETA/USDT",
+  "signal_type": "SELL",
+  "entry_price": "0.7817",
+  "stop_loss_1": "0.7893",
+  "stop_loss_2": "0.7968",
+  "take_profits": [
+    "0.7741",
+    "0.7666",
+    "0.759",
+    "0.7515"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:01:59.338044"
+}
+2025-09-03 23:01:59,340 - __main__ - INFO - Executing strategy for THETA/USDT - SELL
+2025-09-03 23:01:59,340 - __main__ - INFO - Would SELL THETA/USDT at 0.7817
+2025-09-03 23:01:59,340 - __main__ - INFO - Take Profits: [0.7741, 0.7666, 0.759, 0.7515]
+2025-09-03 23:01:59,340 - __main__ - INFO - Stop Losses: 0.7893, 0.7968
+2025-09-03 23:01:59,340 - __main__ - INFO - Executing strategy for THETA/USDT - SELL
+2025-09-03 23:01:59,340 - __main__ - INFO - Would SELL THETA/USDT at 0.7817
+2025-09-03 23:01:59,340 - __main__ - INFO - Take Profits: [0.7741, 0.7666, 0.759, 0.7515]
+2025-09-03 23:01:59,340 - __main__ - INFO - Stop Losses: 0.7893, 0.7968
+2025-09-03 23:02:44,729 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:02:44,730 - __main__ - INFO - Parsed signal: {
+  "symbol": "DOGE/USDT",
+  "signal_type": "SELL",
+  "entry_price": "0.21739",
+  "stop_loss_1": "0.21944",
+  "stop_loss_2": "0.22149",
+  "take_profits": [
+    "0.21534",
+    "0.21329",
+    "0.21125",
+    "0.2092"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:02:44.730526"
+}
+2025-09-03 23:02:44,732 - __main__ - INFO - Executing strategy for DOGE/USDT - SELL
+2025-09-03 23:02:44,732 - __main__ - INFO - Would SELL DOGE/USDT at 0.21739
+2025-09-03 23:02:44,732 - __main__ - INFO - Take Profits: [0.21534, 0.21329, 0.21125, 0.2092]
+2025-09-03 23:02:44,732 - __main__ - INFO - Stop Losses: 0.21944, 0.22149
+2025-09-03 23:02:44,733 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: DOGEUSDT.P | TF: 15 | 
+🔔 Strong Sell Signal Detected : 0.21739
+🔴 Stop-Loss 01  : 0.21944
+🔴 Stop-Loss 02  : 0.22149
+🎯 Take-Profit 01: 0.21534
+🎯 Take-Profit 02: 0.21329
+🎯 Take-Profit 03: 0.21125
+🎯 Take-Profit 04: 0.2092
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:02:44,733 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-03 23:02:44,733 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:02:44,733 - __main__ - INFO - Parsed signal: {
+  "symbol": "DOGE/USDT",
+  "signal_type": "SELL",
+  "entry_price": "0.21739",
+  "stop_loss_1": "0.21944",
+  "stop_loss_2": "0.22149",
+  "take_profits": [
+    "0.21534",
+    "0.21329",
+    "0.21125",
+    "0.2092"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:02:44.733884"
+}
+2025-09-03 23:02:44,734 - __main__ - INFO - Executing strategy for DOGE/USDT - SELL
+2025-09-03 23:02:44,734 - __main__ - INFO - Would SELL DOGE/USDT at 0.21739
+2025-09-03 23:02:44,734 - __main__ - INFO - Take Profits: [0.21534, 0.21329, 0.21125, 0.2092]
+2025-09-03 23:02:44,734 - __main__ - INFO - Stop Losses: 0.21944, 0.22149
+2025-09-03 23:03:44,641 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:03:44,641 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: DOTUSDT.P | TF: 15 | 
+🔔 Strong Sell Signal Detected : 3.829
+🔴 Stop-Loss 01  : 3.862
+🔴 Stop-Loss 02  : 3.895
+🎯 Take-Profit 01: 3.796
+🎯 Take-Profit 02: 3.763
+🎯 Take-Profit 03: 3.73
+🎯 Take-Profit 04: 3.697
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:03:44,642 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-03 23:03:44,642 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:03:44,642 - __main__ - INFO - Parsed signal: {
+  "symbol": "DOT/USDT",
+  "signal_type": "SELL",
+  "entry_price": "3.829",
+  "stop_loss_1": "3.862",
+  "stop_loss_2": "3.895",
+  "take_profits": [
+    "3.796",
+    "3.763",
+    "3.73",
+    "3.697"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:03:44.642235"
+}
+2025-09-03 23:03:44,642 - __main__ - INFO - Parsed signal: {
+  "symbol": "DOT/USDT",
+  "signal_type": "SELL",
+  "entry_price": "3.829",
+  "stop_loss_1": "3.862",
+  "stop_loss_2": "3.895",
+  "take_profits": [
+    "3.796",
+    "3.763",
+    "3.73",
+    "3.697"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:03:44.642585"
+}
+2025-09-03 23:03:44,643 - __main__ - INFO - Executing strategy for DOT/USDT - SELL
+2025-09-03 23:03:44,643 - __main__ - INFO - Would SELL DOT/USDT at 3.829
+2025-09-03 23:03:44,643 - __main__ - INFO - Executing strategy for DOT/USDT - SELL
+2025-09-03 23:03:44,643 - __main__ - INFO - Take Profits: [3.796, 3.763, 3.73, 3.697]
+2025-09-03 23:03:44,643 - __main__ - INFO - Stop Losses: 3.862, 3.895
+2025-09-03 23:03:44,643 - __main__ - INFO - Would SELL DOT/USDT at 3.829
+2025-09-03 23:03:44,644 - __main__ - INFO - Take Profits: [3.796, 3.763, 3.73, 3.697]
+2025-09-03 23:03:44,644 - __main__ - INFO - Stop Losses: 3.862, 3.895
+2025-09-03 23:06:17,748 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:06:17,749 - __main__ - INFO - Parsed signal: {
+  "symbol": "ADA/USDT",
+  "signal_type": "SELL",
+  "entry_price": "0.8265",
+  "stop_loss_1": "0.8357",
+  "stop_loss_2": "0.845",
+  "take_profits": [
+    "0.8173",
+    "0.808",
+    "0.7988",
+    "0.7896"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:06:17.749557"
+}
+2025-09-03 23:06:17,749 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: ADAUSDT | TF: 15 | 
+🔔 Strong Sell Signal Detected : 0.8265
+🔴 Stop-Loss 01  : 0.8357
+🔴 Stop-Loss 02  : 0.845
+🎯 Take-Profit 01: 0.8173
+🎯 Take-Profit 02: 0.808
+🎯 Take-Profit 03: 0.7988
+🎯 Take-Profit 04: 0.7896
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:06:17,750 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-03 23:06:17,750 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:06:17,750 - __main__ - INFO - Parsed signal: {
+  "symbol": "ADA/USDT",
+  "signal_type": "SELL",
+  "entry_price": "0.8265",
+  "stop_loss_1": "0.8357",
+  "stop_loss_2": "0.845",
+  "take_profits": [
+    "0.8173",
+    "0.808",
+    "0.7988",
+    "0.7896"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:06:17.750378"
+}
+2025-09-03 23:06:17,751 - __main__ - INFO - Executing strategy for ADA/USDT - SELL
+2025-09-03 23:06:17,751 - __main__ - INFO - Would SELL ADA/USDT at 0.8265
+2025-09-03 23:06:17,751 - __main__ - INFO - Take Profits: [0.8173, 0.808, 0.7988, 0.7896]
+2025-09-03 23:06:17,751 - __main__ - INFO - Executing strategy for ADA/USDT - SELL
+2025-09-03 23:06:17,751 - __main__ - INFO - Stop Losses: 0.8357, 0.845
+2025-09-03 23:06:17,751 - __main__ - INFO - Would SELL ADA/USDT at 0.8265
+2025-09-03 23:06:17,751 - __main__ - INFO - Take Profits: [0.8173, 0.808, 0.7988, 0.7896]
+2025-09-03 23:06:17,751 - __main__ - INFO - Stop Losses: 0.8357, 0.845
+2025-09-03 23:16:14,116 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:16:14,117 - __main__ - INFO - Parsed signal: {
+  "symbol": "JASMY/USDT",
+  "signal_type": "SELL",
+  "entry_price": "0.01417",
+  "stop_loss_1": "0.01428",
+  "stop_loss_2": "0.01439",
+  "take_profits": [
+    "0.01406",
+    "0.01395",
+    "0.01385",
+    "0.01374"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:16:14.116914"
+}
+2025-09-03 23:16:14,117 - __main__ - INFO - Executing strategy for JASMY/USDT - SELL
+2025-09-03 23:16:14,117 - __main__ - INFO - Would SELL JASMY/USDT at 0.01417
+2025-09-03 23:16:14,117 - __main__ - INFO - Take Profits: [0.01406, 0.01395, 0.01385, 0.01374]
+2025-09-03 23:16:14,117 - __main__ - INFO - Stop Losses: 0.01428, 0.01439
+2025-09-03 23:16:14,123 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: JASMYUSDT | TF: 15 | 
+🔔 Strong Sell Signal Detected : 0.01417
+🔴 Stop-Loss 01  : 0.01428
+🔴 Stop-Loss 02  : 0.01439
+🎯 Take-Profit 01: 0.01406
+🎯 Take-Profit 02: 0.01395
+🎯 Take-Profit 03: 0.01385
+🎯 Take-Profit 04: 0.01374
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:16:14,123 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-03 23:16:14,124 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:16:14,124 - __main__ - INFO - Parsed signal: {
+  "symbol": "JASMY/USDT",
+  "signal_type": "SELL",
+  "entry_price": "0.01417",
+  "stop_loss_1": "0.01428",
+  "stop_loss_2": "0.01439",
+  "take_profits": [
+    "0.01406",
+    "0.01395",
+    "0.01385",
+    "0.01374"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:16:14.124493"
+}
+2025-09-03 23:16:14,127 - __main__ - INFO - Executing strategy for JASMY/USDT - SELL
+2025-09-03 23:16:14,127 - __main__ - INFO - Would SELL JASMY/USDT at 0.01417
+2025-09-03 23:16:14,127 - __main__ - INFO - Take Profits: [0.01406, 0.01395, 0.01385, 0.01374]
+2025-09-03 23:16:14,128 - __main__ - INFO - Stop Losses: 0.01428, 0.01439
+2025-09-03 23:18:29,388 - __main__ - INFO - Discord gateway connection established
+2025-09-03 23:18:29,389 - __main__ - INFO - Bot user ID: 1410626020352065709
+2025-09-03 23:18:29,389 - __main__ - ERROR - Error subscribing to channel 1397264583835783198: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 23:18:29,389 - __main__ - ERROR - Error subscribing to channel 1396816434901946479: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-03 23:18:29,389 - __main__ - INFO - Bot is now ready to receive messages
+2025-09-03 23:30:06,549 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:30:06,553 - __main__ - INFO - Parsed signal: {
+  "symbol": "SOL/USDT",
+  "signal_type": "SELL",
+  "entry_price": "207.76",
+  "stop_loss_1": "209.57",
+  "stop_loss_2": "211.38",
+  "take_profits": [
+    "205.95",
+    "204.14",
+    "202.33",
+    "200.52"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:30:06.552662"
+}
+2025-09-03 23:30:06,554 - __main__ - INFO - Executing strategy for SOL/USDT - SELL
+2025-09-03 23:30:06,555 - __main__ - INFO - Would SELL SOL/USDT at 207.76
+2025-09-03 23:30:06,555 - __main__ - INFO - Take Profits: [205.95, 204.14, 202.33, 200.52]
+2025-09-03 23:30:06,555 - __main__ - INFO - Stop Losses: 209.57, 211.38
+2025-09-03 23:30:06,557 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: SOLUSDT | TF: 15 | 
+🔔 Strong Sell Signal Detected : 207.76
+🔴 Stop-Loss 01  : 209.57
+🔴 Stop-Loss 02  : 211.38
+🎯 Take-Profit 01: 205.95
+🎯 Take-Profit 02: 204.14
+🎯 Take-Profit 03: 202.33
+🎯 Take-Profit 04: 200.52
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:30:06,557 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-03 23:30:06,557 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:30:06,557 - __main__ - INFO - Parsed signal: {
+  "symbol": "SOL/USDT",
+  "signal_type": "SELL",
+  "entry_price": "207.76",
+  "stop_loss_1": "209.57",
+  "stop_loss_2": "211.38",
+  "take_profits": [
+    "205.95",
+    "204.14",
+    "202.33",
+    "200.52"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:30:06.557714"
+}
+2025-09-03 23:30:06,558 - __main__ - INFO - Executing strategy for SOL/USDT - SELL
+2025-09-03 23:30:06,558 - __main__ - INFO - Would SELL SOL/USDT at 207.76
+2025-09-03 23:30:06,558 - __main__ - INFO - Take Profits: [205.95, 204.14, 202.33, 200.52]
+2025-09-03 23:30:06,558 - __main__ - INFO - Stop Losses: 209.57, 211.38
+2025-09-03 23:30:17,492 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:30:17,494 - __main__ - INFO - Parsed signal: {
+  "symbol": "JASMY/USDT",
+  "signal_type": "SELL",
+  "entry_price": "0.01417",
+  "stop_loss_1": "0.01427",
+  "stop_loss_2": "0.01437",
+  "take_profits": [
+    "0.01407",
+    "0.01397",
+    "0.01387",
+    "0.01376"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:30:17.493470"
+}
+2025-09-03 23:30:17,495 - __main__ - INFO - Executing strategy for JASMY/USDT - SELL
+2025-09-03 23:30:17,495 - __main__ - INFO - Would SELL JASMY/USDT at 0.01417
+2025-09-03 23:30:17,495 - __main__ - INFO - Take Profits: [0.01407, 0.01397, 0.01387, 0.01376]
+2025-09-03 23:30:17,495 - __main__ - INFO - Stop Losses: 0.01427, 0.01437
+2025-09-03 23:30:17,496 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: JASMYUSDT | TF: 15 | 
+🔔 Strong Sell Signal Detected : 0.01417
+🔴 Stop-Loss 01  : 0.01427
+🔴 Stop-Loss 02  : 0.01437
+🎯 Take-Profit 01: 0.01407
+🎯 Take-Profit 02: 0.01397
+🎯 Take-Profit 03: 0.01387
+🎯 Take-Profit 04: 0.01376
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:30:17,497 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-03 23:30:17,497 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:30:17,497 - __main__ - INFO - Parsed signal: {
+  "symbol": "JASMY/USDT",
+  "signal_type": "SELL",
+  "entry_price": "0.01417",
+  "stop_loss_1": "0.01427",
+  "stop_loss_2": "0.01437",
+  "take_profits": [
+    "0.01407",
+    "0.01397",
+    "0.01387",
+    "0.01376"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:30:17.497700"
+}
+2025-09-03 23:30:17,498 - __main__ - INFO - Executing strategy for JASMY/USDT - SELL
+2025-09-03 23:30:17,498 - __main__ - INFO - Would SELL JASMY/USDT at 0.01417
+2025-09-03 23:30:17,498 - __main__ - INFO - Take Profits: [0.01407, 0.01397, 0.01387, 0.01376]
+2025-09-03 23:30:17,498 - __main__ - INFO - Stop Losses: 0.01427, 0.01437
+2025-09-03 23:33:56,466 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .
+📌 Symbol: ETHUSDT.P | TF: 15 | 
+🔔 Strong Sell Signal Detected : 4397.87
+🔴 Stop-Loss 01  : 4446.47
+🔴 Stop-Loss 02  : 4495.07
+🎯 Take-Profit 01: 4349.27
+🎯 Take-Profit 02: 4300.67
+🎯 Take-Profit 03: 4252.07
+🎯 Take-Profit 04: 4203.46
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:35:48,282 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:35:48,282 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: SHIBUSDT | TF: 15 | 
+🔔 Strong Sell Signal Detected : 0.00001236
+🔴 Stop-Loss 01  : 0.00001247
+🔴 Stop-Loss 02  : 0.00001257
+🎯 Take-Profit 01: 0.00001225
+🎯 Take-Profit 02: 0.00001215
+🎯 Take-Profit 03: 0.00001204
+🎯 Take-Profit 04: 0.00001193
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:35:48,283 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-03 23:35:48,283 - __main__ - INFO - Parsed signal: {
+  "symbol": "SHIB/USDT",
+  "signal_type": "SELL",
+  "entry_price": "1.236e-05",
+  "stop_loss_1": "1.247e-05",
+  "stop_loss_2": "1.257e-05",
+  "take_profits": [
+    "1.225e-05",
+    "1.215e-05",
+    "1.204e-05",
+    "1.193e-05"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:35:48.283185"
+}
+2025-09-03 23:35:48,283 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:35:48,283 - __main__ - INFO - Parsed signal: {
+  "symbol": "SHIB/USDT",
+  "signal_type": "SELL",
+  "entry_price": "1.236e-05",
+  "stop_loss_1": "1.247e-05",
+  "stop_loss_2": "1.257e-05",
+  "take_profits": [
+    "1.225e-05",
+    "1.215e-05",
+    "1.204e-05",
+    "1.193e-05"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:35:48.283516"
+}
+2025-09-03 23:35:48,284 - __main__ - INFO - Executing strategy for SHIB/USDT - SELL
+2025-09-03 23:35:48,284 - __main__ - INFO - Would SELL SHIB/USDT at 1.236e-05
+2025-09-03 23:35:48,284 - __main__ - INFO - Take Profits: [1.225e-05, 1.215e-05, 1.204e-05, 1.193e-05]
+2025-09-03 23:35:48,284 - __main__ - INFO - Stop Losses: 1.247e-05, 1.257e-05
+2025-09-03 23:35:48,284 - __main__ - INFO - Executing strategy for SHIB/USDT - SELL
+2025-09-03 23:35:48,285 - __main__ - INFO - Would SELL SHIB/USDT at 1.236e-05
+2025-09-03 23:35:48,285 - __main__ - INFO - Take Profits: [1.225e-05, 1.215e-05, 1.204e-05, 1.193e-05]
+2025-09-03 23:35:48,285 - __main__ - INFO - Stop Losses: 1.247e-05, 1.257e-05
+2025-09-03 23:49:33,907 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:49:33,907 - __main__ - INFO - Parsed signal: {
+  "symbol": "LTC/USDT",
+  "signal_type": "SELL",
+  "entry_price": "111.57",
+  "stop_loss_1": "112.37",
+  "stop_loss_2": "113.18",
+  "take_profits": [
+    "110.77",
+    "109.96",
+    "109.16",
+    "108.36"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:49:33.907809"
+}
+2025-09-03 23:49:33,908 - __main__ - INFO - Executing strategy for LTC/USDT - SELL
+2025-09-03 23:49:33,908 - __main__ - INFO - Would SELL LTC/USDT at 111.57
+2025-09-03 23:49:33,908 - __main__ - INFO - Take Profits: [110.77, 109.96, 109.16, 108.36]
+2025-09-03 23:49:33,909 - __main__ - INFO - Stop Losses: 112.37, 113.18
+2025-09-03 23:49:33,931 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: LTCUSDT.P | TF: 15 | 
+🔔 Strong Sell Signal Detected : 111.57
+🔴 Stop-Loss 01  : 112.37
+🔴 Stop-Loss 02  : 113.18
+🎯 Take-Profit 01: 110.77
+🎯 Take-Profit 02: 109.96
+🎯 Take-Profit 03: 109.16
+🎯 Take-Profit 04: 108.36
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:49:33,932 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-03 23:49:33,932 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:49:33,933 - __main__ - INFO - Parsed signal: {
+  "symbol": "LTC/USDT",
+  "signal_type": "SELL",
+  "entry_price": "111.57",
+  "stop_loss_1": "112.37",
+  "stop_loss_2": "113.18",
+  "take_profits": [
+    "110.77",
+    "109.96",
+    "109.16",
+    "108.36"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:49:33.932876"
+}
+2025-09-03 23:49:33,934 - __main__ - INFO - Executing strategy for LTC/USDT - SELL
+2025-09-03 23:49:33,935 - __main__ - INFO - Would SELL LTC/USDT at 111.57
+2025-09-03 23:49:33,935 - __main__ - INFO - Take Profits: [110.77, 109.96, 109.16, 108.36]
+2025-09-03 23:49:33,935 - __main__ - INFO - Stop Losses: 112.37, 113.18
+2025-09-03 23:52:01,677 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:52:01,678 - __main__ - INFO - Parsed signal: {
+  "symbol": "BTC/USDT",
+  "signal_type": "SELL",
+  "entry_price": "111094.8",
+  "stop_loss_1": "111759.4",
+  "stop_loss_2": "None",
+  "take_profits": [
+    "110430.2",
+    "109765.6",
+    "109100.9",
+    "108436.3"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:52:01.677573"
+}
+2025-09-03 23:52:01,679 - __main__ - INFO - Executing strategy for BTC/USDT - SELL
+2025-09-03 23:52:01,679 - __main__ - INFO - Would SELL BTC/USDT at 111094.8
+2025-09-03 23:52:01,679 - __main__ - INFO - Take Profits: [110430.2, 109765.6, 109100.9, 108436.3]
+2025-09-03 23:52:01,679 - __main__ - INFO - Stop Losses: 111759.4, None
+2025-09-03 23:52:01,688 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: BTCUSDT.P | TF: 15 | 
+🔔 Strong Sell Signal Detected : 111094.8
+🔴 Stop-Loss 01  : 111759.4
+🔴 Stop-Loss 02  : 112424
+🎯 Take-Profit 01: 110430.2
+🎯 Take-Profit 02: 109765.6
+🎯 Take-Profit 03: 109100.9
+🎯 Take-Profit 04: 108436.3
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:52:01,688 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-03 23:52:01,688 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:52:01,688 - __main__ - INFO - Parsed signal: {
+  "symbol": "BTC/USDT",
+  "signal_type": "SELL",
+  "entry_price": "111094.8",
+  "stop_loss_1": "111759.4",
+  "stop_loss_2": "None",
+  "take_profits": [
+    "110430.2",
+    "109765.6",
+    "109100.9",
+    "108436.3"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:52:01.688762"
+}
+2025-09-03 23:52:01,689 - __main__ - INFO - Executing strategy for BTC/USDT - SELL
+2025-09-03 23:52:01,689 - __main__ - INFO - Would SELL BTC/USDT at 111094.8
+2025-09-03 23:52:01,689 - __main__ - INFO - Take Profits: [110430.2, 109765.6, 109100.9, 108436.3]
+2025-09-03 23:52:01,689 - __main__ - INFO - Stop Losses: 111759.4, None
+2025-09-03 23:56:22,979 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:56:22,980 - __main__ - INFO - Parsed signal: {
+  "symbol": "PEPE/USDT",
+  "signal_type": "SELL",
+  "entry_price": "9.72e-06",
+  "stop_loss_1": "9.86e-06",
+  "stop_loss_2": "1e-05",
+  "take_profits": [
+    "9.58e-06",
+    "9.44e-06",
+    "9.29e-06",
+    "9.15e-06"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:56:22.979942"
+}
+2025-09-03 23:56:22,980 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: PEPEUSDT | TF: 15 | 
+🔔 Strong Sell Signal Detected : 0.00000972
+🔴 Stop-Loss 01  : 0.00000986
+🔴 Stop-Loss 02  : 0.00001
+🎯 Take-Profit 01: 0.00000958
+🎯 Take-Profit 02: 0.00000944
+🎯 Take-Profit 03: 0.00000929
+🎯 Take-Profit 04: 0.00000915
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-03 23:56:22,981 - __main__ - INFO - Executing strategy for PEPE/USDT - SELL
+2025-09-03 23:56:22,981 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-03 23:56:22,981 - __main__ - INFO - Would SELL PEPE/USDT at 9.72e-06
+2025-09-03 23:56:22,981 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-03 23:56:22,981 - __main__ - INFO - Take Profits: [9.58e-06, 9.44e-06, 9.29e-06, 9.15e-06]
+2025-09-03 23:56:22,981 - __main__ - INFO - Stop Losses: 9.86e-06, 1e-05
+2025-09-03 23:56:22,981 - __main__ - INFO - Parsed signal: {
+  "symbol": "PEPE/USDT",
+  "signal_type": "SELL",
+  "entry_price": "9.72e-06",
+  "stop_loss_1": "9.86e-06",
+  "stop_loss_2": "1e-05",
+  "take_profits": [
+    "9.58e-06",
+    "9.44e-06",
+    "9.29e-06",
+    "9.15e-06"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T03:56:22.981561"
+}
+2025-09-03 23:56:22,982 - __main__ - INFO - Executing strategy for PEPE/USDT - SELL
+2025-09-03 23:56:22,982 - __main__ - INFO - Would SELL PEPE/USDT at 9.72e-06
+2025-09-03 23:56:22,982 - __main__ - INFO - Take Profits: [9.58e-06, 9.44e-06, 9.29e-06, 9.15e-06]
+2025-09-03 23:56:22,982 - __main__ - INFO - Stop Losses: 9.86e-06, 1e-05
+2025-09-04 00:00:24,259 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: LTCUSDT.P | TF: 15 | 
+🔔 Strong Sell Signal Detected : 111.62
+🔴 Stop-Loss 01  : 112.23
+🔴 Stop-Loss 02  : 112.85
+🎯 Take-Profit 01: 111.01
+🎯 Take-Profit 02: 110.39
+🎯 Take-Profit 03: 109.78
+🎯 Take-Profit 04: 109.17
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-04 00:00:24,260 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-04 00:00:24,260 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-04 00:00:24,260 - __main__ - INFO - Parsed signal: {
+  "symbol": "LTC/USDT",
+  "signal_type": "SELL",
+  "entry_price": "111.62",
+  "stop_loss_1": "112.23",
+  "stop_loss_2": "112.85",
+  "take_profits": [
+    "111.01",
+    "110.39",
+    "109.78",
+    "109.17"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T04:00:24.260174"
+}
+2025-09-04 00:00:24,260 - __main__ - INFO - Executing strategy for LTC/USDT - SELL
+2025-09-04 00:00:24,260 - __main__ - INFO - Would SELL LTC/USDT at 111.62
+2025-09-04 00:00:24,260 - __main__ - INFO - Take Profits: [111.01, 110.39, 109.78, 109.17]
+2025-09-04 00:00:24,260 - __main__ - INFO - Stop Losses: 112.23, 112.85
+2025-09-04 00:00:24,272 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-04 00:00:24,272 - __main__ - INFO - Parsed signal: {
+  "symbol": "LTC/USDT",
+  "signal_type": "SELL",
+  "entry_price": "111.62",
+  "stop_loss_1": "112.23",
+  "stop_loss_2": "112.85",
+  "take_profits": [
+    "111.01",
+    "110.39",
+    "109.78",
+    "109.17"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T04:00:24.272517"
+}
+2025-09-04 00:00:24,273 - __main__ - INFO - Executing strategy for LTC/USDT - SELL
+2025-09-04 00:00:24,273 - __main__ - INFO - Would SELL LTC/USDT at 111.62
+2025-09-04 00:00:24,273 - __main__ - INFO - Take Profits: [111.01, 110.39, 109.78, 109.17]
+2025-09-04 00:00:24,273 - __main__ - INFO - Stop Losses: 112.23, 112.85
+2025-09-04 00:00:45,552 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-04 00:00:45,553 - __main__ - INFO - Parsed signal: {
+  "symbol": "PEPE/USDT",
+  "signal_type": "SELL",
+  "entry_price": "9.74e-06",
+  "stop_loss_1": "9.84e-06",
+  "stop_loss_2": "9.94e-06",
+  "take_profits": [
+    "9.64e-06",
+    "9.54e-06",
+    "9.45e-06",
+    "9.35e-06"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T04:00:45.553106"
+}
+2025-09-04 00:00:45,555 - __main__ - INFO - Executing strategy for PEPE/USDT - SELL
+2025-09-04 00:00:45,555 - __main__ - INFO - Would SELL PEPE/USDT at 9.74e-06
+2025-09-04 00:00:45,555 - __main__ - INFO - Take Profits: [9.64e-06, 9.54e-06, 9.45e-06, 9.35e-06]
+2025-09-04 00:00:45,555 - __main__ - INFO - Stop Losses: 9.84e-06, 9.94e-06
+2025-09-04 00:00:45,562 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: PEPEUSDT | TF: 15 | 
+🔔 Strong Sell Signal Detected : 0.00000974
+🔴 Stop-Loss 01  : 0.00000984
+🔴 Stop-Loss 02  : 0.00000994
+🎯 Take-Profit 01: 0.00000964
+🎯 Take-Profit 02: 0.00000954
+🎯 Take-Profit 03: 0.00000945
+🎯 Take-Profit 04: 0.00000935
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-04 00:00:45,562 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-04 00:00:45,562 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-04 00:00:45,562 - __main__ - INFO - Parsed signal: {
+  "symbol": "PEPE/USDT",
+  "signal_type": "SELL",
+  "entry_price": "9.74e-06",
+  "stop_loss_1": "9.84e-06",
+  "stop_loss_2": "9.94e-06",
+  "take_profits": [
+    "9.64e-06",
+    "9.54e-06",
+    "9.45e-06",
+    "9.35e-06"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T04:00:45.562799"
+}
+2025-09-04 00:00:45,563 - __main__ - INFO - Executing strategy for PEPE/USDT - SELL
+2025-09-04 00:00:45,563 - __main__ - INFO - Would SELL PEPE/USDT at 9.74e-06
+2025-09-04 00:00:45,563 - __main__ - INFO - Take Profits: [9.64e-06, 9.54e-06, 9.45e-06, 9.35e-06]
+2025-09-04 00:00:45,563 - __main__ - INFO - Stop Losses: 9.84e-06, 9.94e-06
+2025-09-04 00:06:20,524 - __main__ - INFO - [Channel: 1396816434901946479] Pine Bot (1396816542825447595): .New signal from EliteAlgo v31 @everyone
+
+📌 Symbol: ICPUSDT | TF: 15 | 
+🔔 Strong Sell Signal Detected : 4.844
+🔴 Stop-Loss 01  : 4.892
+🔴 Stop-Loss 02  : 4.939
+🎯 Take-Profit 01: 4.796
+🎯 Take-Profit 02: 4.749
+🎯 Take-Profit 03: 4.701
+🎯 Take-Profit 04: 4.653
+📊 Trend Strength : 50.00%
+🌪 Volatility: 50
+2025-09-04 00:06:20,526 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-04 00:06:20,526 - __main__ - INFO - Processing signal from Pine Bot...
+2025-09-04 00:06:20,527 - __main__ - INFO - Processing new signal from Pine Bot
+2025-09-04 00:06:20,527 - __main__ - INFO - Parsed signal: {
+  "symbol": "ICP/USDT",
+  "signal_type": "SELL",
+  "entry_price": "4.844",
+  "stop_loss_1": "4.892",
+  "stop_loss_2": "4.939",
+  "take_profits": [
+    "4.796",
+    "4.749",
+    "4.701",
+    "4.653"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T04:06:20.526858"
+}
+2025-09-04 00:06:20,527 - __main__ - INFO - Parsed signal: {
+  "symbol": "ICP/USDT",
+  "signal_type": "SELL",
+  "entry_price": "4.844",
+  "stop_loss_1": "4.892",
+  "stop_loss_2": "4.939",
+  "take_profits": [
+    "4.796",
+    "4.749",
+    "4.701",
+    "4.653"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-04T04:06:20.527081"
+}
+2025-09-04 00:06:20,527 - __main__ - INFO - Executing strategy for ICP/USDT - SELL
+2025-09-04 00:06:20,527 - __main__ - INFO - Would SELL ICP/USDT at 4.844
+2025-09-04 00:06:20,527 - __main__ - INFO - Take Profits: [4.796, 4.749, 4.701, 4.653]
+2025-09-04 00:06:20,527 - __main__ - INFO - Executing strategy for ICP/USDT - SELL
+2025-09-04 00:06:20,527 - __main__ - INFO - Stop Losses: 4.892, 4.939
+2025-09-04 00:06:20,527 - __main__ - INFO - Would SELL ICP/USDT at 4.844
+2025-09-04 00:06:20,528 - __main__ - INFO - Take Profits: [4.796, 4.749, 4.701, 4.653]
+2025-09-04 00:06:20,528 - __main__ - INFO - Stop Losses: 4.892, 4.939
+2025-09-06 15:02:05,772 - simple_bot - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-06 15:02:05,772 - simple_bot - INFO - Trading settings - Risk: 1.0%, Max Trades: 5, Leverage: 1x
+2025-09-06 15:02:05,773 - __main__ - ERROR - Failed to parse test signal
+2025-09-06 15:02:47,474 - simple_bot - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-06 15:02:47,474 - simple_bot - INFO - Trading settings - Risk: 1.0%, Max Trades: 5, Leverage: 1x
+2025-09-06 15:02:47,474 - __main__ - INFO - Waiting for Kraken client to initialize...
+2025-09-06 15:02:49,474 - __main__ - ERROR - Failed to parse test signal
+2025-09-06 15:02:49,475 - __main__ - ERROR - Signal: {
+  "symbol": "SOL/USDT",
+  "signal_type": "SELL",
+  "entry_price": null,
+  "stop_loss_1": "207.9",
+  "stop_loss_2": "210.8",
+  "take_profits": [
+    "202.1",
+    "199.2",
+    "196.3",
+    "193.4"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-06T19:02:49.474482",
+  "status": "PENDING",
+  "order_ids": [],
+  "risk_reward_ratio": null
+}
+2025-09-06 15:02:49,500 - ccxt.base.exchange - WARNING - kraken requires to release all resources with an explicit call to the .close() coroutine. If you are using the exchange instance with async coroutines, add `await exchange.close()` to your code into a place when you're done with the exchange and don't need the exchange instance anymore (at the end of your async coroutine).
+2025-09-06 15:02:49,501 - asyncio - ERROR - Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x1096efc50>, 80963.2613755)])']
+connector: <aiohttp.connector.TCPConnector object at 0x1096ae660>
+2025-09-06 15:04:11,061 - simple_bot - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-06 15:04:11,061 - simple_bot - INFO - Trading settings - Risk: 1.0%, Max Trades: 5, Leverage: 1x
+2025-09-06 15:04:11,061 - __main__ - INFO - Waiting for Kraken client to initialize...
+2025-09-06 15:04:13,061 - simple_bot - INFO - Parsed entry price: 205.0
+2025-09-06 15:04:13,062 - simple_bot - INFO - Parsed stop loss 1: 207.9
+2025-09-06 15:04:13,062 - simple_bot - INFO - Parsed stop loss 2: 210.8
+2025-09-06 15:04:13,062 - simple_bot - INFO - Parsed take profits: [202.1, 199.2, 196.3, 193.4]
+2025-09-06 15:04:13,062 - __main__ - INFO - Parsed test signal: {
+  "symbol": "SOL/USDT",
+  "signal_type": "SELL",
+  "entry_price": "205.0",
+  "stop_loss_1": "207.9",
+  "stop_loss_2": "210.8",
+  "take_profits": [
+    "202.1",
+    "199.2",
+    "196.3",
+    "193.4"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-06T19:04:13.061700",
+  "status": "PENDING",
+  "order_ids": [],
+  "risk_reward_ratio": 1.0
+}
+2025-09-06 15:04:13,062 - __main__ - INFO - Position size for $10000 balance at 1% risk: 34.48275862068959 SOL
+2025-09-06 15:04:13,062 - __main__ - INFO - Risk/Reward ratio: 1.0
+2025-09-06 15:04:13,062 - __main__ - INFO - Testing trading strategy execution...
+2025-09-06 15:04:13,062 - simple_bot - INFO - Executing strategy for SOL/USDT - SELL
+2025-09-06 15:04:13,522 - KrakenClient - INFO - Loaded 1201 markets
+2025-09-06 15:04:14,651 - simple_bot - ERROR - Insufficient USDT balance
+2025-09-06 15:04:14,652 - __main__ - ERROR - Signal was not added to active_signals
+2025-09-06 15:04:32,517 - simple_bot - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-06 15:04:32,517 - simple_bot - INFO - Trading settings - Risk: 1.0%, Max Trades: 5, Leverage: 1x
+2025-09-06 15:04:32,517 - __main__ - INFO - Waiting for Kraken client to initialize...
+2025-09-06 15:04:34,517 - simple_bot - INFO - Parsed entry price: 205.0
+2025-09-06 15:04:34,517 - simple_bot - INFO - Parsed stop loss 1: 207.9
+2025-09-06 15:04:34,518 - simple_bot - INFO - Parsed stop loss 2: 210.8
+2025-09-06 15:04:34,518 - simple_bot - INFO - Parsed take profits: [202.1, 199.2, 196.3, 193.4]
+2025-09-06 15:04:34,518 - __main__ - INFO - Parsed test signal: {
+  "symbol": "SOL/USDT",
+  "signal_type": "SELL",
+  "entry_price": "205.0",
+  "stop_loss_1": "207.9",
+  "stop_loss_2": "210.8",
+  "take_profits": [
+    "202.1",
+    "199.2",
+    "196.3",
+    "193.4"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-06T19:04:34.517563",
+  "status": "PENDING",
+  "order_ids": [],
+  "risk_reward_ratio": 1.0
+}
+2025-09-06 15:04:34,518 - __main__ - INFO - Position size for $10000 balance at 1% risk: 34.48275862068959 SOL
+2025-09-06 15:04:34,518 - __main__ - INFO - Risk/Reward ratio: 1.0
+2025-09-06 15:04:34,518 - __main__ - INFO - Testing trading strategy execution...
+2025-09-06 15:04:34,518 - simple_bot - INFO - Executing strategy for SOL/USDT - SELL
+2025-09-06 15:04:34,518 - KrakenClient - ERROR - Error getting market info for SOL/USDT: kraken markets not loaded
+2025-09-06 15:04:34,518 - simple_bot - ERROR - Could not get market info for SOL/USDT
+2025-09-06 15:04:34,518 - __main__ - WARNING - Signal was not added to active_signals (this may be expected in test mode)
+2025-09-06 15:04:34,795 - ccxt.base.exchange - WARNING - kraken requires to release all resources with an explicit call to the .close() coroutine. If you are using the exchange instance with async coroutines, add `await exchange.close()` to your code into a place when you're done with the exchange and don't need the exchange instance anymore (at the end of your async coroutine).
+2025-09-06 15:04:34,795 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x109d6d310>
+2025-09-06 15:05:00,117 - simple_bot - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-06 15:05:00,118 - simple_bot - INFO - Trading settings - Risk: 1.0%, Max Trades: 5, Leverage: 1x
+2025-09-06 15:05:00,118 - __main__ - INFO - Initializing Kraken client and loading markets...
+2025-09-06 15:05:02,647 - __main__ - INFO - Loaded 1201 markets
+2025-09-06 15:05:02,647 - simple_bot - INFO - Parsed entry price: 205.0
+2025-09-06 15:05:02,647 - simple_bot - INFO - Parsed stop loss 1: 207.9
+2025-09-06 15:05:02,647 - simple_bot - INFO - Parsed stop loss 2: 210.8
+2025-09-06 15:05:02,648 - simple_bot - INFO - Parsed take profits: [202.1, 199.2, 196.3, 193.4]
+2025-09-06 15:05:02,648 - __main__ - INFO - Parsed test signal: {
+  "symbol": "SOL/USDT",
+  "signal_type": "SELL",
+  "entry_price": "205.0",
+  "stop_loss_1": "207.9",
+  "stop_loss_2": "210.8",
+  "take_profits": [
+    "202.1",
+    "199.2",
+    "196.3",
+    "193.4"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-06T19:05:02.647627",
+  "status": "PENDING",
+  "order_ids": [],
+  "risk_reward_ratio": 1.0
+}
+2025-09-06 15:05:02,648 - __main__ - INFO - Position size for $10000 balance at 1% risk: 34.48275862068959 SOL
+2025-09-06 15:05:02,648 - __main__ - INFO - Risk/Reward ratio: 1.0
+2025-09-06 15:05:02,648 - __main__ - INFO - Testing trading strategy execution...
+2025-09-06 15:05:02,648 - simple_bot - INFO - Executing strategy for SOL/USDT - SELL
+2025-09-06 15:05:02,648 - KrakenClient - INFO - Loaded 1201 markets
+2025-09-06 15:05:03,778 - KrakenClient - ERROR - Error creating market order: kraken {"error":["ETrade:User Locked"]}
+2025-09-06 15:05:03,778 - simple_bot - ERROR - Failed to place sell order for SOL/USDT
+2025-09-06 15:05:03,778 - __main__ - WARNING - Signal was not added to active_signals (this may be expected in test mode)
+2025-09-06 15:06:00,930 - simple_bot - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-06 15:06:00,930 - simple_bot - INFO - Trading settings - Risk: 1.0%, Max Trades: 5, Leverage: 1x
+2025-09-06 15:06:00,930 - __main__ - INFO - Initializing Kraken client and loading markets...
+2025-09-06 15:06:03,393 - __main__ - INFO - Loaded 1201 markets
+2025-09-06 15:06:03,393 - simple_bot - INFO - Parsed entry price: 205.0
+2025-09-06 15:06:03,393 - simple_bot - INFO - Parsed stop loss 1: 207.9
+2025-09-06 15:06:03,393 - simple_bot - INFO - Parsed stop loss 2: 210.8
+2025-09-06 15:06:03,393 - simple_bot - INFO - Parsed take profits: [202.1, 199.2, 196.3, 193.4]
+2025-09-06 15:06:03,394 - __main__ - INFO - Parsed test signal: {
+  "symbol": "SOL/USDT",
+  "signal_type": "SELL",
+  "entry_price": "205.0",
+  "stop_loss_1": "207.9",
+  "stop_loss_2": "210.8",
+  "take_profits": [
+    "202.1",
+    "199.2",
+    "196.3",
+    "193.4"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-06T19:06:03.393470",
+  "status": "PENDING",
+  "order_ids": [],
+  "risk_reward_ratio": 1.0
+}
+2025-09-06 15:06:03,394 - __main__ - INFO - Position size for $10000 balance at 1% risk: 34.48275862068959 SOL
+2025-09-06 15:06:03,394 - __main__ - INFO - Risk/Reward ratio: 1.0
+2025-09-06 15:06:03,394 - __main__ - INFO - Testing trading strategy execution...
+2025-09-06 15:06:03,394 - simple_bot - INFO - Executing strategy for SOL/USDT - SELL
+2025-09-06 15:06:03,394 - __main__ - INFO - [MOCK] Would create sell market order for 3.44827586 SOL/USDT
+2025-09-06 15:06:03,394 - __main__ - INFO - [MOCK] Would create buy stop loss order for 3.44827586 SOL/USDT at 207.9
+2025-09-06 15:06:03,394 - KrakenClient - INFO - Loaded 1201 markets
+2025-09-06 15:06:04,520 - KrakenClient - ERROR - Error creating limit order: kraken {"error":["ETrade:User Locked"]}
+2025-09-06 15:06:04,637 - KrakenClient - ERROR - Error creating limit order: kraken {"error":["ETrade:User Locked"]}
+2025-09-06 15:06:04,754 - KrakenClient - ERROR - Error creating limit order: kraken {"error":["ETrade:User Locked"]}
+2025-09-06 15:06:04,871 - KrakenClient - ERROR - Error creating limit order: kraken {"error":["ETrade:User Locked"]}
+2025-09-06 15:06:04,871 - simple_bot - INFO - Successfully executed SELL strategy for SOL/USDT
+2025-09-06 15:06:04,872 - simple_bot - INFO - Position size: 3.44827586 SOL
+2025-09-06 15:06:04,872 - simple_bot - INFO - Stop loss: 207.9
+2025-09-06 15:06:04,872 - simple_bot - INFO - Take profits: [202.1, 199.2, 196.3, 193.4]
+2025-09-06 15:06:04,872 - __main__ - WARNING - Signal was not added to active_signals (this may be expected in test mode)
+2025-09-06 15:06:19,714 - simple_bot - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-06 15:06:19,715 - simple_bot - INFO - Trading settings - Risk: 1.0%, Max Trades: 5, Leverage: 1x
+2025-09-06 15:06:19,715 - __main__ - INFO - Initializing Kraken client and loading markets...
+2025-09-06 15:06:22,175 - __main__ - INFO - Loaded 1201 markets
+2025-09-06 15:06:22,175 - simple_bot - INFO - Parsed entry price: 205.0
+2025-09-06 15:06:22,175 - simple_bot - INFO - Parsed stop loss 1: 207.9
+2025-09-06 15:06:22,175 - simple_bot - INFO - Parsed stop loss 2: 210.8
+2025-09-06 15:06:22,175 - simple_bot - INFO - Parsed take profits: [202.1, 199.2, 196.3, 193.4]
+2025-09-06 15:06:22,175 - __main__ - INFO - Parsed test signal: {
+  "symbol": "SOL/USDT",
+  "signal_type": "SELL",
+  "entry_price": "205.0",
+  "stop_loss_1": "207.9",
+  "stop_loss_2": "210.8",
+  "take_profits": [
+    "202.1",
+    "199.2",
+    "196.3",
+    "193.4"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-06T19:06:22.175332",
+  "status": "PENDING",
+  "order_ids": [],
+  "risk_reward_ratio": 1.0
+}
+2025-09-06 15:06:22,175 - __main__ - INFO - Position size for $10000 balance at 1% risk: 34.48275862068959 SOL
+2025-09-06 15:06:22,175 - __main__ - INFO - Risk/Reward ratio: 1.0
+2025-09-06 15:06:22,175 - __main__ - INFO - Testing trading strategy execution...
+2025-09-06 15:06:22,175 - simple_bot - INFO - Executing strategy for SOL/USDT - SELL
+2025-09-06 15:06:22,175 - __main__ - INFO - [MOCK] Would create sell market order for 3.44827586 SOL/USDT
+2025-09-06 15:06:22,176 - __main__ - INFO - [MOCK] Would create buy stop loss order for 3.44827586 SOL/USDT at 207.9
+2025-09-06 15:06:22,176 - KrakenClient - INFO - Loaded 1201 markets
+2025-09-06 15:06:23,295 - KrakenClient - ERROR - Error creating limit order: kraken {"error":["ETrade:User Locked"]}
+2025-09-06 15:06:23,508 - KrakenClient - ERROR - Error creating limit order: kraken {"error":["ETrade:User Locked"]}
+2025-09-06 15:06:23,625 - KrakenClient - ERROR - Error creating limit order: kraken {"error":["ETrade:User Locked"]}
+2025-09-06 15:06:23,748 - KrakenClient - ERROR - Error creating limit order: kraken {"error":["ETrade:User Locked"]}
+2025-09-06 15:06:23,748 - simple_bot - INFO - Successfully executed SELL strategy for SOL/USDT
+2025-09-06 15:06:23,748 - simple_bot - INFO - Position size: 3.44827586 SOL
+2025-09-06 15:06:23,748 - simple_bot - INFO - Stop loss: 207.9
+2025-09-06 15:06:23,748 - simple_bot - INFO - Take profits: [202.1, 199.2, 196.3, 193.4]
+2025-09-06 15:06:23,748 - __main__ - INFO - Signal for SOL/USDT was processed successfully
+2025-09-06 15:06:23,748 - __main__ - INFO - Signal details: {
+  "symbol": "SOL/USDT",
+  "signal_type": "SELL",
+  "entry_price": "205.0",
+  "stop_loss_1": "207.9",
+  "stop_loss_2": "210.8",
+  "take_profits": [
+    "202.1",
+    "199.2",
+    "196.3",
+    "193.4"
+  ],
+  "trend_strength": 50.0,
+  "volatility": 50,
+  "timestamp": "2025-09-06T19:06:22.175332",
+  "status": "OPEN",
+  "order_ids": [
+    "mock_1757185582",
+    "sl_1757185582"
+  ],
+  "risk_reward_ratio": 1.0
+}
+2025-09-08 17:23:37,669 - __main__ - INFO - === Starting EliteAlgo Trading Bot ===
+2025-09-08 17:23:37,669 - __main__ - INFO - Monitoring 2 channel(s)
+2025-09-08 17:23:37,994 - __main__ - INFO - Initialized bot monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-08 17:23:37,994 - __main__ - INFO - Trading settings - Risk: 1.0%, Max Trades: 5, Leverage: 1x
+2025-09-08 17:23:37,994 - __main__ - INFO - Starting Discord bot...
+2025-09-08 17:23:37,994 - __main__ - INFO - Monitoring channels: [1397264583835783198, 1396816434901946479]
+2025-09-08 17:23:37,994 - __main__ - INFO - Connecting to Discord gateway...
+2025-09-08 17:23:38,538 - __main__ - INFO - Discord gateway connection established
+2025-09-08 17:23:38,538 - __main__ - INFO - Bot user ID: 1410626020352065709
+2025-09-08 17:23:38,538 - __main__ - ERROR - Error subscribing to channel 1397264583835783198: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-08 17:23:38,538 - __main__ - ERROR - Error subscribing to channel 1396816434901946479: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-08 17:23:38,538 - __main__ - INFO - Bot is now ready to receive messages
+2025-09-08 17:26:40,433 - __main__ - INFO - Discord gateway connection established
+2025-09-08 17:26:40,434 - __main__ - INFO - Bot user ID: 1410626020352065709
+2025-09-08 17:26:40,434 - __main__ - ERROR - Error subscribing to channel 1397264583835783198: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-08 17:26:40,434 - __main__ - ERROR - Error subscribing to channel 1396816434901946479: 'GatewayServer' object has no attribute 'subscribeToMessageEvents'
+2025-09-08 17:26:40,434 - __main__ - INFO - Bot is now ready to receive messages
+2025-09-08 17:30:20,296 - __main__ - INFO - Shutting down Discord connection...
+2025-09-08 17:30:20,296 - __main__ - INFO - Bot shutdown complete
+2025-09-08 17:30:20,297 - __main__ - CRITICAL - Fatal error during initialization: a coroutine was expected, got None
+Traceback (most recent call last):
+  File "/Users/anzulin/DISCORD-ELITEALGOBOT/simple_bot.py", line 650, in main
+    except Exception as e:
+           ^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/tasks.py", line 410, in create_task
+    task = loop.create_task(coro, name=name)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 470, in create_task
+    task = tasks.Task(coro, loop=self, **kwargs)
+TypeError: a coroutine was expected, got None
+2025-09-08 17:30:20,300 - __main__ - INFO - Bot stopped by user

@@ -1,0 +1,5 @@
+.qodo
+node_modules
+dist
+error.log
+trades.log

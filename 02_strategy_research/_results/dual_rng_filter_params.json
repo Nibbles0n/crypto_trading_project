@@ -1,0 +1,39 @@
+{
+  "strategy": "dual_rng_filter",
+  "timestamp": "2025-12-01T17:20:37.189397",
+  "optimization_settings": {
+    "trials": 50,
+    "metric": "Expectancy",
+    "direction": "Maximize"
+  },
+  "parameters": {
+    "breakout_period": 10.0,
+    "breakout_threshold": 0.25,
+    "chop_lookback": 32.0,
+    "cooldown_bars": 25.0,
+    "explosive_accel": 4.300000000000001,
+    "explosive_extension_bars": 5.5,
+    "explosive_vol_mult": 2.4000000000000004,
+    "max_loss_cap": 3.3,
+    "max_profit_cap": 16.700000000000003,
+    "min_distance": 0.0,
+    "min_price_distance_pct": 0.75,
+    "min_profit_potential": 1.7000000000000002,
+    "min_profit_threshold": 0.43000000000000005,
+    "min_quality_score": 56,
+    "min_signal_rating": 5,
+    "peak_drawdown_pct": 52.2,
+    "peak_lookback": 5,
+    "peak_lookback_bars": 4,
+    "peak_profit_trigger": 3.85,
+    "peak_tolerance": 0.4,
+    "quality_lookback": 28.0,
+    "trailing_stop_pct": 0.35,
+    "trend_ema_period": 31.0,
+    "velocity_period": 1.5,
+    "vol_atr_period": 14.0,
+    "vol_sensitivity": 0.3,
+    "volume_ma_period": 21.0,
+    "volume_multiplier": 1.3
+  }
+}

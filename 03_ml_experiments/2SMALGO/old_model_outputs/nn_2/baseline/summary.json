@@ -1,0 +1,13 @@
+{
+  "name": "baseline",
+  "best_epoch": 1,
+  "best_val_loss": 0.36728747217401597,
+  "best_val_f1": 0.24283526580582115,
+  "best_thresh": 0.11507273465394974,
+  "val_auc": 0.5922659163358552,
+  "val_auprc": 0.17154247421927535,
+  "precision_at_best": 0.1565640537395536,
+  "recall_at_best": 0.5408697770739432,
+  "train_time_sec": 42.24939703941345,
+  "history_csv": "model_output/nn_report/baseline/training_history.csv"
+}
