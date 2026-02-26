@@ -28,7 +28,7 @@ Anzu found the "Range Filter"—a conditional moving average that stays flat dur
 
 I spent the next month building a 2,000-line backend from scratch using **Quart**. I needed it to be asynchronous because I was handling real-time WebSockets and I couldn't have one token update blocking another. This was the moment coding got real—I moved past just copy-pasting AI code and started manually writing logic line-by-line using the AI more as a "distilled library" than a crutch.
 
-### 7. The Python Conversion (The "Wheelchair" Moment)
+### 7. The Python Conversion
 The biggest hurdle was getting Anzu’s complex Pine Script logic out of TradingView and into native Python. This is where Claude 3.5 Sonnet came in. It allowed Anzu to bridge the gap between his trading logic and my Python environment as he started to actually understand the code himself.
 
 Suddenly, we weren't limited to 2 months of data. We were running backtests on 3+ years of history—the equivalent of 600 years of trading across our token list. 
