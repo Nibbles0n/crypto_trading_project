@@ -10,7 +10,6 @@ To move beyond "scripts" and into "systems," we have documented the core enginee
 
 *   **[Technical Abstracts](./_docs/PROJECT_ABSTRACTS.md)**: Nuanced breakdown of `asyncio` state management, ML stratification, and thin market resilience.
 *   **[Example System Architecture](./_docs/ARCHITECTURE.md)**: Visual data flow diagrams (Mermaid) showing the lifecycle of a price tick from exchange to execution for our "Liquid Bananas" implementation.
-*   **[Quant & Systems FAQ](./_docs/TECH_DEEP_DIVE.md)**: Strategic answers to "Elite Questions" on slippage, state reconciliation, and data rigour.
 
 ---
 
