@@ -1,6 +1,6 @@
 # Project Evolution Timeline
 
-This document tracks the journey of the crypto trading project from inception in late Grade 9 to the current production-ready state.
+This document tracks the journey of the crypto trading project from inception in late Grade 9 to the current production-ready state. I have provided what AI models where available at the time to provide context.
 
 ## Phase 1: Inception & Sentiment Analysis (May 2025)
 *   **Goal:** Use NLP to predict market movements based on mainstream news.
@@ -50,7 +50,7 @@ This document tracks the journey of the crypto trading project from inception in
 
 ---
 
-# ⚠️ Portfolio Caveats & Data Integrity
+# Portfolio Caveats & Data Integrity
 
 > [!WARNING]
 > **Future Data Leakage:** Many of the historical backtests in this repository (specifically those involving the Dual Range Filter) exhibit significant **future data leakage**. 
