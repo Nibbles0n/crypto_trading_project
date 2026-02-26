@@ -4,17 +4,17 @@ This document provides a nuanced, engineering-focused breakdown of the major com
 
 ---
 
-## 🍌 LiquidBananas: High-Concurrency Asynchronous Trading
+## LiquidBananas: High-Concurrency Asynchronous Trading
 **Focus**: Performance Engineering & State Reliability
 
-*   **Core Architecture**: Built on **Quart** (Asynchronous Python) to manage the inherently concurrent nature of crypto markets. The system maintains a localized "Source of Truth" in `AccountState`, synchronized with the exchange via `asyncio.gather` for parallelized ohlcv/position fetching.
+*   **Core Architecture**: Built on **Quart** (Asynchronous Python) to manage the concurrency nature of trading multiple tokens in parallel. The system maintains a localized "Source of Truth" in `AccountState`, synchronized with the exchange by `asyncio.gather` for parallelized ohlcv/position fetching.
 *   **State Integrity**: Implements `asyncio.Lock` to prevent race conditions during tick processing and state reconciliation. This ensures that the Signal Generator and the Risk Manager never operate on stale or conflicting account data.
 *   **Thin Market Resilience**: Uses a custom **Forward-Filling** algorithm in the `runner.py` gap-filling loop. This handles illiquid tokens by synthetically projecting price data across missing 5m bars, ensuring indicator continuity and preventing "ghost signals" during low-volatility regimes.
 *   **Execution Infrastructure**: Integrated with **Hyperliquid** via a streamlined CCXT wrapper that handles precision rounding, leverage normalization, and non-blocking order status polling.
 
 ---
 
-## 🧠 2SMALGO: Signal Confirmation via Deep Learning
+## 2SMALGO: Signal Confirmation via Deep Learning
 **Focus**: Machine Learning Methodology & Data Rigour
 
 *   **Heuristic Labeling**: Leverages a custom **Zigzag heuristic** to label historical data. Rather than simple price targets, the model attempts to learn the underlying structure of mean-reversion and trend-exhaustion points identified by the range filter.
@@ -24,7 +24,7 @@ This document provides a nuanced, engineering-focused breakdown of the major com
 
 ---
 
-## 🖥️ Bananas Trading Bot: Full-Stack Observability
+## Bananas Trading Bot: Full-Stack Observability
 **Focus**: Human-in-the-Loop Systems
 
 *   **Asynchronous Dashboard**: Extends the core runner with a real-time monitoring API. It utilizes `uvicorn.Server` to host a non-blocking diagnostic interface.
@@ -33,8 +33,8 @@ This document provides a nuanced, engineering-focused breakdown of the major com
 
 ---
 
-## 🛠️ Tooling & Research Infrastructure
+## Tooling & Research Infrastructure
 **Focus**: Innovation Pipeline
 
 *   **Pine Agent**: A specialized utility for bridging the gap between TradingView's Pine Script and native Python. This was the "Force Multiplier" that allowed for moving past the 2.5-month backtesting limit.
-*   **Helius RPC Integration**: Exploration of low-latency Solana transaction signing and WebSocket listening, demonstrating an understanding of RPC-layer communication and the trade-offs of blockchain-direct trading.
+*   **Helius RPC Integration**: Exploration of low-latency Solana transaction signing and WebSocket listening, demonstrating an understanding of RPC-layer communication and the trade-offs of blockchain-direct trading. This was from very early on in the project where I didnt even know the difference between a REST and Websocket API yet.
